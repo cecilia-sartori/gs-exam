@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+
+<html>
+
+  <script src="/assets/global/jquery-3.6.0.min.js"></script>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>
+    Finding patterns - The worst neighborhood to be a Women in Mexico City
+    
+  </title>
+
+  <meta name="description" content="A geospatial analysis of gender-based violence locations">
+
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+  <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="http://localhost:4000/3_spatialCorr/">
+  <link rel="alternate" type="application/rss+xml" title="The worst neighborhood to be a Women in Mexico City" href="/feed.xml">
+
+</head>
+
+
+<body>
+
+  <!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="/"> 
+      <img class="logo-dark" src="/img/unitn_logo_dark.png" alt="">
+      <img class="logo-light" src="/img/unitn_logo_light.png" alt="">
+    
+    </a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      Menu
+      <i class="fa fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/1_intro">intro</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/2_mapping">mapping vaw</a>
+        </li> 
+        <li class="nav-item">
+          <a class="nav-link" href="/3_spatialCorr">spatial analysis</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/4_streetNxAnalysis">street network</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/5_conclusion">conclusion</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/cecilia-sartori/gs-exam">git hub</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+  <!-- Page Header -->
+
+<header class="masthead" style="background-image: url('/img/bg_spatCorr.jpg')">
+  
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="page-heading">
+            <h1>Finding patterns</h1>
+            
+            <span class="subheading">investigating spatial correlations</span>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <script src="/assets/global/anchor.min.js"></script>
+
+  <script>
+	$(function() {
+		anchors.options.visible = 'touch'; 
+		anchors.add('.post-content > h1, h2');
+	});
+</script>
+
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+
+        <p>According to the so-called “<a href="https://en.wikipedia.org/wiki/Tobler%27s_first_law_of_geography">First Law of Geography</a>”, things that happen in a place are likely to also happen at nearby locations. This relationship can be positive if similar values are close to each other, or negative if distant.</p>
+
+<p>From the previous choropleth maps, I expect vaw data to have some spatial correlation. To formally prove this intuition, proceed by:</p>
+
+<p>1) investigating whether VAW generally follow a particular pattern in its geographical distribution (<strong>Global spatial autocorrelation</strong>)</p>
+
+<p>2) detecting where clusters are (<strong>Local Spatial Autocorrelation</strong>)</p>
+
+<p><span style="white-space: pre"> 
+<span style="white-space: pre"></span></span></p>
+
+<p>Required modules*:</p>
+
+<ul>
+  <li>Pysal for KNN and spatial lag</li>
+  <li>Esda for calculating Moran’s I (global and local)</li>
+  <li>Splot for plotting Moran’s I scatterplot and LISA clusters</li>
+</ul>
+
+<p><span style="white-space: pre"> 
+<span style="white-space: pre"></span></span></p>
+
+<p>*exclude modules presented in previous steps</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Import required modules
+</span><span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="n">gpd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="c1"># spatial analysis
+</span><span class="kn">import</span> <span class="nn">libpysal</span> <span class="k">as</span> <span class="n">lps</span>
+<span class="kn">import</span> <span class="nn">esda</span>
+<span class="kn">from</span> <span class="nn">esda.moran</span> <span class="kn">import</span> <span class="n">Moran</span><span class="p">,</span> <span class="n">Moran_Local</span>
+<span class="kn">import</span> <span class="nn">splot</span>
+<span class="kn">from</span> <span class="nn">splot.esda</span> <span class="kn">import</span> <span class="n">moran_scatterplot</span><span class="p">,</span> <span class="n">plot_moran</span><span class="p">,</span> <span class="n">lisa_cluster</span>
+
+<span class="c1"># additional: avoid warnings messages
+</span><span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="p">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s">'ignore'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Import the spatial VAW data
+(processed in the previous data preparation step).</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Read the data
+</span><span class="n">gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="p">.</span><span class="n">read_file</span><span class="p">(</span><span class="s">'data/VAW_AGEB_clean.gjson'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="global-spatial-autocorrelation">Global spatial autocorrelation</h2>
+
+<p>The first step is to determine what to consider as neighbors and compute the spatial weights accordingly. I’ll use the k-nearest neighbours weight (with $k = 8$) which assigns neighbors based on distance by finding the (eight) closest neighbors based on the centroid of each geography.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># calculate spatial weight
+</span><span class="n">w_knn</span> <span class="o">=</span> <span class="n">lps</span><span class="p">.</span><span class="n">weights</span><span class="p">.</span><span class="n">KNN</span><span class="p">.</span><span class="n">from_dataframe</span><span class="p">(</span><span class="n">gdf</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+
+</code></pre></div></div>
+
+<p>Now I need to proceed with the row-standardization. This computation adjusts the spatial weights matrix dividing each weight by its row sum.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Row-standardization
+</span><span class="n">w_knn</span><span class="p">.</span><span class="n">transform</span> <span class="o">=</span> <span class="s">'R'</span>
+</code></pre></div></div>
+
+<p>Plot the k-nearest neighbours map</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ax</span> <span class="o">=</span> <span class="n">gdf</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">edgecolor</span><span class="o">=</span><span class="s">'grey'</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s">'w'</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">12</span><span class="p">))</span>
+
+<span class="n">f</span><span class="p">,</span><span class="n">ax</span> <span class="o">=</span> <span class="n">w_knn</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">gdf</span><span class="p">,</span> 
+                  <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> 
+        <span class="n">edge_kws</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s">'r'</span><span class="p">,</span> 
+                      <span class="n">linestyle</span><span class="o">=</span><span class="s">':'</span><span class="p">,</span>
+                      <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+        <span class="n">node_kws</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">marker</span><span class="o">=</span><span class="s">''</span><span class="p">))</span>
+
+<span class="n">ax</span><span class="p">.</span><span class="n">set_axis_off</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p><img src="/img/3_spatialCorr/output_9_0.png" alt="knn8" /></p>
+
+<p>With a relatively high number of neighbors and small geometries, the map is not visually attractive. Still, it helps to get a better idea of the KNN relationships among the spatial units.</p>
+
+<p><strong>Compute Spatial lag</strong></p>
+
+<p>Now use <code class="language-plaintext highlighter-rouge">Pysal</code> to compute the spatial lag of VAW per 1000.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># compute the spatial lag
+</span><span class="n">gdf</span><span class="p">[</span><span class="s">'VAW_per_1000_LAG'</span><span class="p">]</span> <span class="o">=</span> <span class="n">lps</span><span class="p">.</span><span class="n">weights</span><span class="p">.</span><span class="n">lag_spatial</span><span class="p">(</span><span class="n">w_knn</span><span class="p">,</span> <span class="n">gdf</span><span class="p">[</span><span class="s">'VAW_per_1000'</span><span class="p">])</span>
+</code></pre></div></div>
+
+<p>And compare the map of violence per 1000 with the spatial lag.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">f</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+<span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span> <span class="o">=</span> <span class="n">axs</span>
+
+<span class="n">gdf</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">column</span><span class="o">=</span><span class="s">'VAW_per_1000'</span><span class="p">,</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="s">'RdYlGn_r'</span><span class="p">,</span>
+    <span class="n">scheme</span><span class="o">=</span><span class="s">'quantiles'</span><span class="p">,</span>
+    <span class="n">k</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+    <span class="n">edgecolor</span><span class="o">=</span><span class="s">'white'</span><span class="p">,</span>
+    <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span>
+    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span>
+    <span class="n">legend</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+    <span class="n">ax</span><span class="o">=</span><span class="n">ax1</span>
+<span class="p">)</span>
+<span class="n">ax1</span><span class="p">.</span><span class="n">set_axis_off</span><span class="p">()</span>
+<span class="n">ax1</span><span class="p">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">"Rates VAW"</span><span class="p">)</span>
+
+<span class="n">gdf</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">column</span><span class="o">=</span><span class="s">'VAW_per_1000_LAG'</span><span class="p">,</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="s">'RdYlGn_r'</span><span class="p">,</span>
+    <span class="n">scheme</span><span class="o">=</span><span class="s">'quantiles'</span><span class="p">,</span>
+    <span class="n">k</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+    <span class="n">edgecolor</span><span class="o">=</span><span class="s">'white'</span><span class="p">,</span>
+    <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span>
+    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span>
+    <span class="n">legend</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+    <span class="n">ax</span><span class="o">=</span><span class="n">ax2</span>
+<span class="p">)</span>
+<span class="n">ax2</span><span class="p">.</span><span class="n">set_axis_off</span><span class="p">()</span>
+<span class="n">ax2</span><span class="p">.</span><span class="n">set_title</span><span class="p">(</span><span class="s">"Rates VAW - Spatial Lag"</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p><img src="/img/3_spatialCorr/output_14_0.png" alt="lag" /></p>
+
+<p>Note that clusters are more evident in the Spatial Lag map. This because spatial lags captures the wider geographical dependencies.</p>
+
+<p>Still a visual intuition though. How to prove that spatial autocorrelation is positive?</p>
+
+<p>The Moran’s I answer to this question. If positive, then data have positive spatial autocorrelation, namely high values are close to high values and low values are close to low values. On the contrary, similar values are far from each other (negative spatial autocorrelation).</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># global autocorrelation for WAV per 1000
+</span><span class="n">moran</span> <span class="o">=</span> <span class="n">Moran</span><span class="p">(</span><span class="n">gdf</span><span class="p">.</span><span class="n">VAW_per_1000</span><span class="p">,</span> <span class="n">w_knn</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">"Moran's I: "</span><span class="p">,</span> <span class="n">moran</span><span class="p">.</span><span class="n">I</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Moran's I:  0.1550478007421278
+</code></pre></div></div>
+
+<p>The Moran’s I is bounded by -1 and 1, so 0.15 is not large, but it is still above zero. Therefore, there is a positive spatial autocorrelation between VAW locations. To be completly sure that patterns on map are not generated by a random process, I need to compute the Moran’I associated P-value.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="s">"P-value: "</span><span class="p">,</span> <span class="n">moran</span><span class="p">.</span><span class="n">p_sim</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>P-value:  0.001
+</code></pre></div></div>
+
+<p>Since the p-value is small enough, then I can reject the null hypothesis. Namely, the spatial patterns on VAW locations are not produced by random chance.</p>
+
+<p>All the above can be see using the Moran scatterplot. The graph will show the relationship between rates of VAW per 1000 and the average value of its neighbors for the same variable.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">plot_moran</span><span class="p">(</span><span class="n">moran</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p><img src="/img/3_spatialCorr/output_20_0.png" alt="moranI" /></p>
+
+<p>The red line direction of the Moran Scatterplot confirms the positive relationship and, overall, I can say that high rates of WAV tend to be associated with high local average values. In the upper-right quadrant are geographies where both the VAW rates and local average VAW rate are higher than the overall average value. Similarly, in the lower-left quadrant are cases where both the VAW rate and local average value of the VAW rate are lower than the overall average value.</p>
+
+<p>Thanks to global autocorrelation, I know for a fact that our data do have a general pattern and they do not cluster by accident. But, I don’t know yet if there is a local pattern. To find out that, run the local indicators of spatial association (LISA) analysis.</p>
+
+<h2 id="local-spatial-autocorrelation">Local Spatial Autocorrelation</h2>
+
+<p>Use <code class="language-plaintext highlighter-rouge">esda</code> to compute local Moran values.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">lisa</span> <span class="o">=</span> <span class="n">esda</span><span class="p">.</span><span class="n">moran</span><span class="p">.</span><span class="n">Moran_Local</span><span class="p">(</span><span class="n">gdf</span><span class="p">.</span><span class="n">VAW_per_1000</span><span class="p">,</span> <span class="n">w_knn</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>As before, use the scatterplot to get a better insight.
+LISA allows to decide the P-value for which consider the relationship to be significant. Set P-Value lower than 0.05.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Plot
+</span><span class="n">fig</span><span class="p">,</span><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">12</span><span class="p">))</span>
+<span class="c1"># set p-value: 0.05
+</span><span class="n">moran_scatterplot</span><span class="p">(</span><span class="n">lisa</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s">"VAW"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">'VAW Spatial Lag'</span><span class="p">)</span>
+
+<span class="c1"># add some labels
+</span><span class="n">plt</span><span class="p">.</span><span class="n">text</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s">"HH"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">text</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="s">"HL"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s">"LH"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="s">"LL"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+
+
+</code></pre></div></div>
+
+<p><img src="/img/3_spatialCorr/output_25_0.png" alt="png" /></p>
+
+<p>In the figure above, the coloured points represents AGEBs that are statisticaly significantly, spatially autocorrelated for a P- Value less than 0.05.</p>
+
+<p>Finally, I can visually the clusters using the <code class="language-plaintext highlighter-rouge">lisa_cluster</code> function.
+Here below, plot the Local Autocorrelation map for P-value &lt; 0.05 and P-value &lt; 0.01</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+
+<span class="c1"># P -Value &lt; 0.05 
+</span><span class="n">lisa_cluster</span><span class="p">(</span><span class="n">lisa</span><span class="p">,</span> <span class="n">gdf</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">axis</span><span class="p">(</span><span class="s">"off"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">set_title</span><span class="p">(</span><span class="s">"P-value: 0.05"</span><span class="p">)</span>
+
+<span class="c1"># P -Value &lt; 0.01
+</span><span class="n">lisa_cluster</span><span class="p">(</span><span class="n">lisa</span><span class="p">,</span> <span class="n">gdf</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">axis</span><span class="p">(</span><span class="s">"off"</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">set_title</span><span class="p">(</span><span class="s">"P-value: 0.01"</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p><img src="/img/3_spatialCorr/output_27_0.png" alt="pvalue" /></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Save data for future steps
+</span><span class="n">gdf</span><span class="p">.</span><span class="n">to_file</span><span class="p">(</span><span class="s">"data/VAW_AGEB_clean_lag.gjson"</span><span class="p">,</span> <span class="n">driver</span><span class="o">=</span><span class="s">"GeoJSON"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>From the figures, it can be seen that areas with HH and LL values are more frequent, further confirming the positive correlation between the VAW rate and where the violence took place. With P-value &lt; 0.01, we can see where the relationship is stronger.</p>
+
+<p>Now we could examine the relationship between the VAW rate (dependent variable) and the explanatory variables (predictors) applying different spatial regression models to find which best describe our data. However, this is out of the scope of this project and I will keep the task as a future challenge.</p>
+
+<p>In the next step, I’ll focus on the street network analysis to find the shortest path to reach the nearest Help Centre from each AGEB.</p>
+
+<p align="right">
+    <a class="btn btn-light" href="/4_streetNxAnalysis" role="button">Next</a>
+</p>
+
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Footer -->
+
+<hr>
+
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <ul class="list-inline text-center">
+          
+          <li class="list-inline-item">
+            <a href="mailto:cecilia.sartori@studenti.unitn.it">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="far fa-envelope fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          
+          
+          
+          <li class="list-inline-item">
+            <a href="https://github.com/cecilia-sartori">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+        </ul>
+        <p class="copyright text-muted">Copyright &copy; cecilia sartori 2022</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/vendor/startbootstrap-clean-blog/js/scripts.js"></script>
+
+<script src="/assets/scripts.js"></script>
+
+
+
+
+
+</body>
+
+</html>

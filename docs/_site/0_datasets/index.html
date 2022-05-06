@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+
+<html>
+
+  <script src="/assets/global/jquery-3.6.0.min.js"></script>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>
+    Pre-Processing - The worst neighborhood to be a Women in Mexico City
+    
+  </title>
+
+  <meta name="description" content="A geospatial analysis of gender-based violence locations">
+
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+  <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="http://localhost:4000/0_datasets/">
+  <link rel="alternate" type="application/rss+xml" title="The worst neighborhood to be a Women in Mexico City" href="/feed.xml">
+
+</head>
+
+
+<body>
+
+  <!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="/"> 
+      <img class="logo-dark" src="/img/unitn_logo_dark.png" alt="">
+      <img class="logo-light" src="/img/unitn_logo_light.png" alt="">
+    
+    </a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      Menu
+      <i class="fa fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/1_intro">intro</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/2_mapping">mapping vaw</a>
+        </li> 
+        <li class="nav-item">
+          <a class="nav-link" href="/3_spatialCorr">spatial analysis</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/4_streetNxAnalysis">street network</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/5_conclusion">conclusion</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/cecilia-sartori/gs-exam">git hub</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+  <!-- Page Header -->
+
+<header class="masthead" style="background-image: url('/img/bg_mapping1.jpg')">
+  
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="page-heading">
+            <h1>Pre-Processing</h1>
+            
+            <span class="subheading">Step-by-step</span>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <script src="/assets/global/anchor.min.js"></script>
+
+  <script>
+	$(function() {
+		anchors.options.visible = 'touch'; 
+		anchors.add('.post-content > h1, h2');
+	});
+</script>
+
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+
+        <h1 id="data-pre-processing">Data pre-processing</h1>
+
+<h2 id="census-data">Census Data</h2>
+
+<p>The data cover the entire Mexico City, but have a sub-unit (Manzana) that we do not consider. After importing, select AGEB, replace special character <code class="language-plaintext highlighter-rouge">*</code> with Nan values, select non-string objects and convert them into float data type. Save file.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># HEAVY FILE
+</span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s">'data/resageburb_CDMX/RESAGEBURB_09XLSX20.xlsx'</span><span class="p">)</span>
+<span class="c1">#df
+</span></code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s">'NOM_LOC'</span><span class="p">]</span><span class="o">==</span><span class="s">'Total AGEB urbana'</span><span class="p">]</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">.</span><span class="n">replace</span><span class="p">(</span><span class="s">'*'</span><span class="p">,</span> <span class="n">np</span><span class="p">.</span><span class="n">nan</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df</span><span class="p">.</span><span class="n">info</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
+Int64Index: 2433 entries, 3 to 68915
+Columns: 231 entries, CVEGEO to VPH_SINTIC
+dtypes: int64(6), object(225)
+memory usage: 4.3+ MB
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df1</span> <span class="o">=</span> <span class="n">df</span><span class="p">.</span><span class="n">iloc</span><span class="p">[:,:</span><span class="mi">9</span><span class="p">]</span>
+<span class="n">df2</span> <span class="o">=</span> <span class="n">df</span><span class="p">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">9</span><span class="p">:]</span>
+
+<span class="n">df2</span> <span class="o">=</span> <span class="n">df2</span><span class="p">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">).</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+<span class="n">df2</span><span class="p">.</span><span class="n">info</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
+Int64Index: 2433 entries, 3 to 68915
+Columns: 222 entries, POBTOT to VPH_SINTIC
+dtypes: float64(222)
+memory usage: 4.1 MB
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df1</span><span class="p">,</span><span class="n">df2</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df</span><span class="p">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s">'data/census_data2020.csv'</span><span class="p">,</span> <span class="n">index</span> <span class="o">=</span> <span class="bp">False</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="vaw-data">VAW Data</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Read data
+</span><span class="n">vaw</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'data/d543a7b1-f8cb-439f-8a5c-e56c5479eeb5.csv'</span><span class="p">)</span>
+<span class="n">vaw</span><span class="p">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div>
+<div class="divScroll">
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>_id</th>
+      <th>idCarpeta</th>
+      <th>Ano_inicio</th>
+      <th>Mes_inicio</th>
+      <th>FechaInicio</th>
+      <th>Delito</th>
+      <th>Categoria</th>
+      <th>Sexo</th>
+      <th>Edad</th>
+      <th>TipoPersona</th>
+      <th>...</th>
+      <th>Mes_hecho</th>
+      <th>FechaHecho</th>
+      <th>HoraHecho</th>
+      <th>HoraInicio</th>
+      <th>AlcaldiaHechos</th>
+      <th>ColoniaHechos</th>
+      <th>Calle_hechos</th>
+      <th>Calle_hechos2</th>
+      <th>latitud</th>
+      <th>longitud</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>8324429</td>
+      <td>2019</td>
+      <td>Enero</td>
+      <td>2019-04-01T00:00:00</td>
+      <td>FRAUDE</td>
+      <td>DELITO DE BAJO IMPACTO</td>
+      <td>Masculino</td>
+      <td>62.0</td>
+      <td>FISICA</td>
+      <td>...</td>
+      <td>Agosto</td>
+      <td>29/08/2018</td>
+      <td>12:00:00</td>
+      <td>12:19:00</td>
+      <td>ALVARO OBREGON</td>
+      <td>GUADALUPE INN</td>
+      <td>INSUGENTES SUR</td>
+      <td>NaN</td>
+      <td>19.36125</td>
+      <td>-99.18314</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>8324430</td>
+      <td>2019</td>
+      <td>Enero</td>
+      <td>2019-04-01T00:00:00</td>
+      <td>PRODUCCIÓN, IMPRESIÓN, ENAJENACIÓN, DISTRIBUCI...</td>
+      <td>DELITO DE BAJO IMPACTO</td>
+      <td>Femenino</td>
+      <td>38.0</td>
+      <td>FISICA</td>
+      <td>...</td>
+      <td>Diciembre</td>
+      <td>15/12/2018</td>
+      <td>15:00:00</td>
+      <td>12:20:00</td>
+      <td>AZCAPOTZALCO</td>
+      <td>VICTORIA DE LAS DEMOCRACIAS</td>
+      <td>AV.  CUATLAHUAC</td>
+      <td>NaN</td>
+      <td>19.47181</td>
+      <td>-99.16458</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>8324431</td>
+      <td>2019</td>
+      <td>Enero</td>
+      <td>2019-04-01T00:00:00</td>
+      <td>ROBO A TRANSEUNTE SALIENDO DEL BANCO CON VIOLE...</td>
+      <td>ROBO A CUENTAHABIENTE SALIENDO DEL CAJERO CON ...</td>
+      <td>Masculino</td>
+      <td>42.0</td>
+      <td>FISICA</td>
+      <td>...</td>
+      <td>Diciembre</td>
+      <td>22/12/2018</td>
+      <td>15:30:00</td>
+      <td>12:23:00</td>
+      <td>COYOACAN</td>
+      <td>COPILCO UNIVERSIDAD ISSSTE</td>
+      <td>COPILCO</td>
+      <td>NaN</td>
+      <td>19.33797</td>
+      <td>-99.18611</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>8324435</td>
+      <td>2019</td>
+      <td>Enero</td>
+      <td>2019-04-01T00:00:00</td>
+      <td>ROBO DE VEHICULO DE SERVICIO PARTICULAR SIN VI...</td>
+      <td>ROBO DE VEHÍCULO CON Y SIN VIOLENCIA</td>
+      <td>Masculino</td>
+      <td>35.0</td>
+      <td>FISICA</td>
+      <td>...</td>
+      <td>Enero</td>
+      <td>04/01/2019</td>
+      <td>06:00:00</td>
+      <td>12:27:00</td>
+      <td>IZTACALCO</td>
+      <td>AGRÍCOLA PANTITLAN</td>
+      <td>CALLE 6</td>
+      <td>ENTRE PRIVADA DEL VALLE Y PRIVADA GONZALEZ</td>
+      <td>19.40327</td>
+      <td>-99.05983</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>8324438</td>
+      <td>2019</td>
+      <td>Enero</td>
+      <td>2019-04-01T00:00:00</td>
+      <td>ROBO DE MOTOCICLETA SIN VIOLENCIA</td>
+      <td>ROBO DE VEHÍCULO CON Y SIN VIOLENCIA</td>
+      <td>Masculino</td>
+      <td>NaN</td>
+      <td>FISICA</td>
+      <td>...</td>
+      <td>Enero</td>
+      <td>03/01/2019</td>
+      <td>20:00:00</td>
+      <td>12:35:00</td>
+      <td>IZTAPALAPA</td>
+      <td>PROGRESISTA</td>
+      <td>UNIVERSIDAD</td>
+      <td>NaN</td>
+      <td>19.35480</td>
+      <td>-99.06324</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 23 columns</p>
+</div>
+</div>
+
+<p>Inspect with info() method to get better data insight.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vaw</span><span class="p">.</span><span class="n">info</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
+RangeIndex: 679500 entries, 0 to 679499
+Data columns (total 23 columns):
+ #   Column           Non-Null Count   Dtype  
+---  ------           --------------   -----  
+ 0   _id              679500 non-null  int64  
+ 1   idCarpeta        679500 non-null  int64  
+ 2   Ano_inicio       679500 non-null  int64  
+ 3   Mes_inicio       679500 non-null  object 
+ 4   FechaInicio      679500 non-null  object 
+ 5   Delito           679500 non-null  object 
+ 6   Categoria        679500 non-null  object 
+ 7   Sexo             544603 non-null  object 
+ 8   Edad             428467 non-null  float64
+ 9   TipoPersona      673814 non-null  object 
+ 10  CalidadJuridica  679499 non-null  object 
+ 11  competencia      679500 non-null  object 
+ 12  Ano_hecho        679201 non-null  float64
+ 13  Mes_hecho        679201 non-null  object 
+ 14  FechaHecho       679201 non-null  object 
+ 15  HoraHecho        679208 non-null  object 
+ 16  HoraInicio       679499 non-null  object 
+ 17  AlcaldiaHechos   678706 non-null  object 
+ 18  ColoniaHechos    650449 non-null  object 
+ 19  Calle_hechos     678102 non-null  object 
+ 20  Calle_hechos2    245950 non-null  object 
+ 21  latitud          650670 non-null  float64
+ 22  longitud         650668 non-null  float64
+dtypes: float64(4), int64(3), object(16)
+memory usage: 119.2+ MB
+</code></pre></div></div>
+
+<p>There are 679 500 observations, which are quite a lot! Notice that the non-null values of latitude and longitude are less than the total entries. Therefore, drop all rows that have a NaN value in these columns and run a preliminary sub-selection by keeping female victims and latest year available.</p>
+
+<p>From the data structure, I know that “Ano_inicio” field corresponds to the opening date of the investigation, while “Ano_hecho” represents the date on which the crime was committed. Then, go for the second.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># drop Nan values
+</span><span class="n">vaw</span> <span class="o">=</span> <span class="n">vaw</span><span class="p">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s">'latitud'</span><span class="p">,</span> <span class="s">'longitud'</span><span class="p">])</span>
+
+<span class="c1"># sort unique years in the data
+</span><span class="n">year</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">vaw</span><span class="p">[</span><span class="s">'Ano_hecho'</span><span class="p">].</span><span class="n">unique</span><span class="p">())</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"Last year available: "</span><span class="p">,</span> <span class="n">year</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Last year available:  2021.0
+</code></pre></div></div>
+
+<p>Filter data accordingly</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vaw</span> <span class="o">=</span> <span class="n">vaw</span><span class="p">[</span><span class="n">vaw</span><span class="p">[</span><span class="s">'Ano_hecho'</span><span class="p">]</span><span class="o">==</span> <span class="mi">2021</span><span class="p">]</span>
+<span class="n">vaw</span> <span class="o">=</span> <span class="n">vaw</span><span class="p">[</span><span class="n">vaw</span><span class="p">[</span><span class="s">'Sexo'</span><span class="p">]</span><span class="o">==</span><span class="s">'Femenino'</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p><strong>Abortion in Mexico: a Crime?</strong></p>
+
+<p>Since 2021, abortion in Mexico is no longer a crime, although its legalisation still varies by state (<a href="https://edition.cnn.com/2021/09/07/americas/mexico-criminalizing-abortion-unconstitutional-intl-latam/index.html">source</a>).</p>
+
+<p>Yet, in our data it still labeled as a crime:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vaw</span><span class="p">[</span><span class="n">vaw</span><span class="p">[</span><span class="s">'Delito'</span><span class="p">]</span><span class="o">==</span> <span class="s">'ABORTO'</span><span class="p">].</span><span class="n">sample</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div>
+<div class="table-wrapper">
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>_id</th>
+      <th>idCarpeta</th>
+      <th>Ano_inicio</th>
+      <th>Mes_inicio</th>
+      <th>FechaInicio</th>
+      <th>Delito</th>
+      <th>Categoria</th>
+      <th>Sexo</th>
+      <th>Edad</th>
+      <th>TipoPersona</th>
+      <th>...</th>
+      <th>Mes_hecho</th>
+      <th>FechaHecho</th>
+      <th>HoraHecho</th>
+      <th>HoraInicio</th>
+      <th>AlcaldiaHechos</th>
+      <th>ColoniaHechos</th>
+      <th>Calle_hechos</th>
+      <th>Calle_hechos2</th>
+      <th>latitud</th>
+      <th>longitud</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>617884</th>
+      <td>617885</td>
+      <td>8984123</td>
+      <td>2021</td>
+      <td>Julio</td>
+      <td>2021-07-30T00:00:00</td>
+      <td>ABORTO</td>
+      <td>DELITO DE BAJO IMPACTO</td>
+      <td>Femenino</td>
+      <td>NaN</td>
+      <td>FISICA</td>
+      <td>...</td>
+      <td>Julio</td>
+      <td>30/07/2021</td>
+      <td>12:00:00</td>
+      <td>12:19:00</td>
+      <td>IZTAPALAPA</td>
+      <td>AMPLIACIÓN EMILIANO ZAPATA</td>
+      <td>CUCO SANCHEZ</td>
+      <td>NaN</td>
+      <td>19.338769</td>
+      <td>-98.976155</td>
+    </tr>
+  </tbody>
+</table>
+<p>1 rows × 23 columns</p>
+</div>
+</div>
+
+<p>Considering abortion as a crime is beyond the scope of this project, but you too may find this interesting.</p>
+
+<p><strong>Back to Data Preparation</strong></p>
+
+<p>Select vaw crimes that match with the strings “sexual, domestic, femicide” and then print the results.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vaw</span> <span class="o">=</span> <span class="n">vaw</span><span class="p">[</span><span class="n">vaw</span><span class="p">[</span><span class="s">'Delito'</span><span class="p">].</span><span class="nb">str</span><span class="p">.</span><span class="n">contains</span><span class="p">(</span><span class="s">'sexual|familiar|feminicidio'</span><span class="p">,</span> <span class="n">case</span><span class="o">=</span><span class="bp">False</span><span class="p">)]</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">'List of crimes after text query:</span><span class="se">\n</span><span class="s">'</span><span class="p">,</span> <span class="n">vaw</span><span class="p">[</span><span class="s">'Delito'</span><span class="p">].</span><span class="n">unique</span><span class="p">())</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>List of crimes after text query:
+ ['VIOLENCIA FAMILIAR' 'ABUSO SEXUAL' 'ACOSO SEXUAL'
+ 'CONTRA LA INTIMIDAD SEXUAL' 'ACOSO SEXUAL AGRAVADO EN CONTRA DE MENORES'
+ 'FEMINICIDIO' 'FEMINICIDIO POR ARMA BLANCA' 'TENTATIVA DE FEMINICIDIO'
+ 'FEMINICIDIO POR DISPARO DE ARMA DE FUEGO'
+ 'PRIVACION DE LA LIBERTAD PERSONAL (REALIZAR ACTO SEXUAL)'
+ 'FEMINICIDIO POR GOLPES']
+</code></pre></div></div>
+
+<p>Using str.contains() as filter method in data preparation is highly not recommended because the chance of missing important information is real. For example, strings can have special characters. In this case, I didn’t find any viable alternative.</p>
+
+<p>Let’s now begin to translate the DataFrame from Spanish to English starting from the columns names:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># select columns and rename
+</span><span class="n">vaw</span> <span class="o">=</span> <span class="n">vaw</span><span class="p">[[</span><span class="s">'FechaHecho'</span><span class="p">,</span> <span class="s">'Delito'</span><span class="p">,</span> <span class="s">'latitud'</span><span class="p">,</span> <span class="s">'longitud'</span><span class="p">]]</span>
+<span class="n">vaw</span><span class="p">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s">'Time'</span><span class="p">,</span> <span class="s">'Crime'</span><span class="p">,</span> <span class="s">'latitude'</span><span class="p">,</span> <span class="s">'longitude'</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vaw</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Time</th>
+      <th>Crime</th>
+      <th>latitude</th>
+      <th>longitude</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>480286</th>
+      <td>01/01/2021</td>
+      <td>VIOLENCIA FAMILIAR</td>
+      <td>19.198153</td>
+      <td>-99.026277</td>
+    </tr>
+    <tr>
+      <th>480289</th>
+      <td>01/01/2021</td>
+      <td>VIOLENCIA FAMILIAR</td>
+      <td>19.193027</td>
+      <td>-99.095006</td>
+    </tr>
+    <tr>
+      <th>480302</th>
+      <td>01/01/2021</td>
+      <td>VIOLENCIA FAMILIAR</td>
+      <td>19.336963</td>
+      <td>-99.152265</td>
+    </tr>
+    <tr>
+      <th>480306</th>
+      <td>01/01/2021</td>
+      <td>VIOLENCIA FAMILIAR</td>
+      <td>19.561525</td>
+      <td>-99.146590</td>
+    </tr>
+    <tr>
+      <th>480320</th>
+      <td>01/01/2021</td>
+      <td>VIOLENCIA FAMILIAR</td>
+      <td>19.395045</td>
+      <td>-99.061060</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>679459</th>
+      <td>20/10/2021</td>
+      <td>VIOLENCIA FAMILIAR</td>
+      <td>19.254090</td>
+      <td>-99.103389</td>
+    </tr>
+    <tr>
+      <th>679485</th>
+      <td>15/10/2021</td>
+      <td>VIOLENCIA FAMILIAR</td>
+      <td>19.341063</td>
+      <td>-99.031959</td>
+    </tr>
+    <tr>
+      <th>679488</th>
+      <td>22/06/2021</td>
+      <td>ACOSO SEXUAL</td>
+      <td>19.361737</td>
+      <td>-99.148816</td>
+    </tr>
+    <tr>
+      <th>679496</th>
+      <td>26/10/2021</td>
+      <td>VIOLENCIA FAMILIAR</td>
+      <td>19.272829</td>
+      <td>-98.996817</td>
+    </tr>
+    <tr>
+      <th>679497</th>
+      <td>29/10/2021</td>
+      <td>VIOLENCIA FAMILIAR</td>
+      <td>19.415395</td>
+      <td>-99.170198</td>
+    </tr>
+  </tbody>
+</table>
+<p>25419 rows × 4 columns</p>
+</div>
+
+<p>and continuing with the body. List all the values for ‘Crime’:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vaw</span><span class="p">[</span><span class="s">'Crime'</span><span class="p">].</span><span class="n">unique</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>array(['VIOLENCIA FAMILIAR', 'ABUSO SEXUAL', 'ACOSO SEXUAL',
+       'CONTRA LA INTIMIDAD SEXUAL',
+       'ACOSO SEXUAL AGRAVADO EN CONTRA DE MENORES', 'FEMINICIDIO',
+       'FEMINICIDIO POR ARMA BLANCA', 'TENTATIVA DE FEMINICIDIO',
+       'FEMINICIDIO POR DISPARO DE ARMA DE FUEGO',
+       'PRIVACION DE LA LIBERTAD PERSONAL (REALIZAR ACTO SEXUAL)',
+       'FEMINICIDIO POR GOLPES'], dtype=object)
+</code></pre></div></div>
+
+<p>Several types of ‘FEMICIDE’ are in. I use a simple regular expression to join them and replace them with the English word.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vaw</span><span class="p">[</span><span class="s">'Crime'</span><span class="p">]</span> <span class="o">=</span> <span class="n">vaw</span><span class="p">[</span><span class="s">'Crime'</span><span class="p">].</span><span class="nb">str</span><span class="p">.</span><span class="n">replace</span><span class="p">(</span><span class="sa">r</span><span class="s">'.*FEMINICIDIO.*'</span><span class="p">,</span> <span class="sa">r</span><span class="s">'FEMICIDE'</span><span class="p">,</span> <span class="n">regex</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Conclude the translation for the other crime types.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">from_text</span> <span class="o">=</span> <span class="p">[</span><span class="s">'VIOLENCIA FAMILIAR'</span><span class="p">,</span> <span class="s">'ABUSO SEXUAL'</span><span class="p">,</span> <span class="s">'ACOSO SEXUAL'</span><span class="p">,</span>
+             <span class="s">'CONTRA LA INTIMIDAD SEXUAL'</span><span class="p">,</span> <span class="s">'ACOSO SEXUAL AGRAVADO EN CONTRA DE MENORES'</span><span class="p">,</span>
+             <span class="s">'FEMICIDE'</span><span class="p">,</span> <span class="s">'PRIVACION DE LA LIBERTAD PERSONAL (REALIZAR ACTO SEXUAL)'</span><span class="p">]</span>
+
+<span class="n">replace_with</span> <span class="o">=</span> <span class="p">[</span><span class="s">'DOMESTIC VIOLENCE'</span><span class="p">,</span> <span class="s">'SEXUAL ABUSE'</span><span class="p">,</span> <span class="s">'SEXUAL HARASSMENT'</span><span class="p">,</span>
+        <span class="s">'AGAINST SEXUAL INTIMACY'</span><span class="p">,</span> <span class="s">'AGGRAVATED SEXUAL HARASSMENT AGAINST MINORS'</span><span class="p">,</span> <span class="s">'FEMICIDE'</span><span class="p">,</span>
+        <span class="s">'DEPRIVATION OF PERSONAL LIBERTY (PERFORMING A SEXUAL ACT)'</span><span class="p">]</span>
+
+<span class="n">vaw</span> <span class="o">=</span> <span class="n">vaw</span><span class="p">.</span><span class="n">replace</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">from_text</span><span class="p">,</span> <span class="n">replace_with</span><span class="p">)))</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vaw</span><span class="p">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Time</th>
+      <th>Crime</th>
+      <th>latitude</th>
+      <th>longitude</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>480286</th>
+      <td>01/01/2021</td>
+      <td>DOMESTIC VIOLENCE</td>
+      <td>19.198153</td>
+      <td>-99.026277</td>
+    </tr>
+    <tr>
+      <th>480289</th>
+      <td>01/01/2021</td>
+      <td>DOMESTIC VIOLENCE</td>
+      <td>19.193027</td>
+      <td>-99.095006</td>
+    </tr>
+    <tr>
+      <th>480302</th>
+      <td>01/01/2021</td>
+      <td>DOMESTIC VIOLENCE</td>
+      <td>19.336963</td>
+      <td>-99.152265</td>
+    </tr>
+    <tr>
+      <th>480306</th>
+      <td>01/01/2021</td>
+      <td>DOMESTIC VIOLENCE</td>
+      <td>19.561525</td>
+      <td>-99.146590</td>
+    </tr>
+    <tr>
+      <th>480320</th>
+      <td>01/01/2021</td>
+      <td>DOMESTIC VIOLENCE</td>
+      <td>19.395045</td>
+      <td>-99.061060</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vaw</span><span class="p">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s">'data/vaw_filtered.csv'</span><span class="p">,</span> <span class="n">index</span> <span class="o">=</span> <span class="bp">False</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="neighbourhood-data">Neighbourhood Data</h2>
+
+<p>Add to neighbourhood variables the total population per unit by merging with ‘Population per Neighbourhood’.</p>
+
+<ul>
+  <li>
+    <p>Date source:</p>
+
+    <p><a href="https://datos.cdmx.gob.mx/dataset/alcaldias/resource/8648431b-4f34-4f1a-a4b1-19142f944300">CDMX neighborhoods - Mexico City Open Data Portal</a></p>
+  </li>
+  <li>
+    <p>Data Structure:</p>
+
+    <p>Structure of the data is described in a separate excel file <a href="https://datos.cdmx.gob.mx/dataset/alcaldias/resource/e4a9b05f-c480-45fb-a62c-6d4e39c5180e">download here</a></p>
+  </li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="n">gpd</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Read the data
+</span><span class="n">gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="p">.</span><span class="n">read_file</span><span class="p">(</span><span class="s">'data/alcaldias_cdmx/alcaldias_cdmx.shp'</span><span class="p">)</span>
+<span class="n">gdf</span> <span class="o">=</span> <span class="n">gdf</span><span class="p">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{</span><span class="s">'nomgeo'</span><span class="p">:</span><span class="s">'NOMGEO'</span><span class="p">})</span>
+<span class="c1">#gdf.head(5)
+</span></code></pre></div></div>
+
+<p><strong>Population per Neighbourhood</strong></p>
+
+<ul>
+  <li>
+    <p>Date source:</p>
+
+    <p><a href="https://datos.cdmx.gob.mx/dataset/poblacion-total-y-tasa-de-crecimiento-media-anual-1990-2020-por-alcaldia">CDMX Population per Neighbourhood - Mexico City Open Data Portal</a></p>
+  </li>
+  <li>
+    <p>Data Structure:</p>
+
+    <p>Structure of the data is described in a separate excel file <a href="https://datos.cdmx.gob.mx/dataset/poblacion-total-y-tasa-de-crecimiento-media-anual-1990-2020-por-alcaldia/resource/ffa231fc-e0d2-4583-8a99-fd421fc9b442">download here</a></p>
+  </li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'data/poblacion_total_tasa_crecimiento.csv'</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s">'Año'</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2020</span><span class="p">]</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="c1">#df
+</span></code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># drop the last summary row
+</span><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">.</span><span class="n">drop</span><span class="p">([</span><span class="mi">16</span><span class="p">])</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{</span><span class="s">'Alcaldia'</span><span class="p">:</span><span class="s">'NOMGEO'</span><span class="p">,</span> <span class="s">'Población total'</span><span class="p">:</span> <span class="s">'POBTOT'</span> <span class="p">})</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">.</span><span class="nb">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">).</span><span class="nb">str</span><span class="p">.</span><span class="n">upper</span><span class="p">())</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">merge</span> <span class="o">=</span> <span class="n">gdf</span><span class="p">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s">'NOMGEO'</span><span class="p">)</span>
+<span class="n">merge</span> <span class="o">=</span> <span class="n">merge</span><span class="p">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{</span><span class="s">'cvegeo'</span><span class="p">:</span><span class="s">'CVEGEO'</span><span class="p">})</span>
+<span class="n">merge</span><span class="p">[</span><span class="s">'POBTOT'</span><span class="p">]</span> <span class="o">=</span> <span class="n">merge</span><span class="p">[</span><span class="s">'POBTOT'</span><span class="p">].</span><span class="nb">str</span><span class="p">.</span><span class="n">replace</span><span class="p">(</span><span class="s">','</span><span class="p">,</span> <span class="s">''</span><span class="p">).</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gdf</span> <span class="o">=</span> <span class="n">merge</span><span class="p">[[</span><span class="s">'CVEGEO'</span><span class="p">,</span> <span class="s">'NOMGEO'</span><span class="p">,</span> <span class="s">'POBTOT'</span><span class="p">,</span> <span class="s">'geometry'</span><span class="p">]]</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Write to GeoJSON
+</span>
+<span class="n">gdf</span><span class="p">.</span><span class="n">to_file</span><span class="p">(</span><span class="s">"data/CDMX_municipalities.gjson"</span><span class="p">,</span> <span class="n">driver</span><span class="o">=</span><span class="s">"GeoJSON"</span><span class="p">)</span>
+</code></pre></div></div>
+
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Footer -->
+
+<hr>
+
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <ul class="list-inline text-center">
+          
+          <li class="list-inline-item">
+            <a href="mailto:cecilia.sartori@studenti.unitn.it">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="far fa-envelope fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          
+          
+          
+          <li class="list-inline-item">
+            <a href="https://github.com/cecilia-sartori">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+        </ul>
+        <p class="copyright text-muted">Copyright &copy; cecilia sartori 2022</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/vendor/startbootstrap-clean-blog/js/scripts.js"></script>
+
+<script src="/assets/scripts.js"></script>
+
+
+
+
+
+</body>
+
+</html>

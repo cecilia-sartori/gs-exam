@@ -1,0 +1,29 @@
+title:              The worst neighborhood to be a Women in Mexico City
+email:              cecilia.sartori@studenti.unitn.it
+description:        A geospatial analysis of gender-based violence locations
+author:             cecilia sartori
+baseurl:            "gs-exam"
+url:                "https://cecilia-sartori.github.io"
+
+permalink: pretty
+
+# Social Profiles
+twitter_username:   
+github_username:    cecilia-sartori
+facebook_username:  
+instagram_username:  
+linkedin_username:
+
+# Add your google-analytics ID here to activate google analytics
+google_analytics:   UA-XXXXXXXXX-X # out your google-analytics code
+
+# Build settings
+markdown:           kramdown
+paginate:           5
+paginate_path:      "/posts/page:num/"
+plugins:
+  - jekyll-feed
+  - jekyll-paginate
+  - jekyll-sitemap ## Uncomment this line to silently generate a sitemaps.org compliant sitemap for your Jekyll site
+
+highlighter: rouge

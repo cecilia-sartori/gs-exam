@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+
+<html>
+
+  <script src="/assets/global/jquery-3.6.0.min.js"></script>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>
+    The worst neighborhood to be a Women in Mexico City
+  </title>
+
+  <meta name="description" content="A geospatial analysis of gender-based violence locations">
+
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+  <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="http://localhost:4000/">
+  <link rel="alternate" type="application/rss+xml" title="The worst neighborhood to be a Women in Mexico City" href="/feed.xml">
+
+</head>
+
+
+<body>
+
+  <!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="/"> 
+      <img class="logo-dark" src="/img/unitn_logo_dark.png" alt="">
+      <img class="logo-light" src="/img/unitn_logo_light.png" alt="">
+    
+    </a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      Menu
+      <i class="fa fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/1_intro">intro</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/2_mapping">mapping vaw</a>
+        </li> 
+        <li class="nav-item">
+          <a class="nav-link" href="/3_spatialCorr">spatial analysis</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/4_streetNxAnalysis">street network</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/5_conclusion">conclusion</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/cecilia-sartori/gs-exam">git hub</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+  <!-- Page Header -->
+
+<header class="masthead" style="background-image: url('/img/bg-index.jpg')">
+  
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="page-heading">
+            <h1>The worst neighborhood to be a Women in Mexico City</h1>
+            
+            <span class="subheading">A geospatial analysis of gender-based violence locations</span>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <script src="/assets/global/anchor.min.js"></script>
+  <script>
+	$(function() {
+		anchors.options.visible = 'touch'; 
+		anchors.add('.post-content > h1, h2, h3');
+	});
+</script>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+
+        <p>With the rise of the open data culture and the growing investments in the digital transformation of public administrations, government data sets with geocoded locations are becoming more available to anyone. This provides many opportunities to extract meaningful insights of human behaviour from geographic patterns.</p>
+
+<p>This project aims to map violence against women (VAW) in Mexico City neighborhoods and identify what areas are most at risk within the city. After a brief introduction on VAW in the world, it will evaluate the spatial dependence between geographic locations of reported cases by using a smaller spatial unit, the census blocks (AGEB). In conclusion, it will investigate access to women’s shelters by computing the average travel distance.</p>
+
+<p><span style="white-space: pre"></span></p>
+<h5 id="keywords-violence-against-women-spatial-data-data-visualization-interactive-maps-mexico">Keywords: violence against women; spatial data; data visualization; interactive maps; Mexico</h5>
+
+<p><span style="white-space: pre"></span></p>
+
+<h2 id="background">Background</h2>
+
+<p>Ending violence against women by 2030 is one of the greatest challenges of the UN Agenda for Sustainble Development. Globally, one in three women have been subjected to physical or sexual violence at least once in their lives and the COVID-19 pandemic has seriously worsened the situation<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>.</p>
+
+<p>Fighting femicide and assaults on women is particularly hard in Latin America and the Caribbean. In 2017, the region has been declared by the UN Women and the UN Development Programme, the most violent region in the world for women<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup> and an extensive <a href="https://www.unwomen.org/en/news/stories/2017/2/take-five-adriana-quinones-femicide-in-latin-america">survey</a> indicates that among the 25 countries with the highest rates of femicide in the world, more than half are in Latin America and the Caribbean.</p>
+
+<p>Among all the countries of the region, Mexico ranks first for investing in open data. In recent years, high-value data have been made open and accessible to the general public with platforms such as <a href="http://www.atlasnacionalderiesgos.gob.mx/portal/fenomenos/">National Risk Atlas</a>, <a href="https://datamexico.org/">Data México</a> and <a href="https://www.datos.gob.mx/">Mexican Open Government Data</a> worthy of a special mention. Moreover, Mexico is part of <a href="https://smartcities.ieee.org/about/municipal-partners">IEEE Core Smart Cities</a>, a global initiative to promote the use of technology to improve the quality of life of urban residents- as Trento does for Italy.</p>
+
+<p>Therefore, the capital of Mexico is the perfect candidate to develop this project.</p>
+
+<h2 id="factors-associated-with-violence-against-women">Factors associated with violence against women</h2>
+
+<p>Various studies have proven that low-socioeconomic status are related to a higher VAW rate<sup id="fnref:3" role="doc-noteref"><a href="#fn:3" class="footnote" rel="footnote">3</a></sup>. According to UN<sup id="fnref:4" role="doc-noteref"><a href="#fn:4" class="footnote" rel="footnote">4</a></sup>, risk factors include low levels of education, income and gender inequality. This project will retrieve some elements associated with social marginality to make data more informative, but it won’t delve into the relationship between variables and violence against women.</p>
+
+<h2 id="data-sources">Data Sources</h2>
+
+<p>Data will mostly come from Mexico City’s open data portal, datos.cdmx.gob.mx. Census block geographies are from the National Institute of Statistics and Geography (INEGI) website, inegi.org.mx, while the neighbourod from Mexico City’s portal as are both VAW reported cases and Help Centre locations. Data on the state of VAW in the world comes from the World Health Organization data hub. Other data come from Open Streets Map.</p>
+
+<p><span style="white-space: pre"> 
+<span style="white-space: pre"></span></span></p>
+
+<p><span style="white-space: pre"> 
+<span style="white-space: pre"></span></span></p>
+
+<p align="right">
+    <a class="btn btn-light" href="/1_intro" role="button">Next</a>
+</p>
+
+<p><span style="white-space: pre"> 
+<span style="white-space: pre"></span></span></p>
+
+<h3 id="references">References</h3>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p><em>“Violence against women is endemic in every country and culture, causing harm to millions of women and their families, and has been exacerbated by the COVID-19 pandemic”</em>, Dr Tedros Adhanom Ghebreyesus (WHO Director-General), Extract from WHO News, available online <a href="https://www.who.int/news/item/09-03-2021-devastatingly-pervasive-1-in-3-women-globally-experience-violence">here</a> <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:2" role="doc-endnote">
+      <p><em>Latin America is world’s most violent region for women: UN says</em>, ABS-CBN News, available online <a href="https://news.abs-cbn.com/overseas/11/23/17/latin-america-is-worlds-most-violent-region-for-women-un">here</a> <a href="#fnref:2" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:3" role="doc-endnote">
+      <p>Lubker, Disa K. V. (2004) <em>Socioeconomic Status and Domestic Violence</em>,” International Journal of Global Health and Health Disparities, 3(1), 85-91.Available at <a href="https://scholarworks.uni.edu/ijghhd/vol3/iss1/10">link</a> <a href="#fnref:3" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:4" role="doc-endnote">
+      <p><em>Violence against women, Fact sheet</em>, UN news, 9 March 2021, available online <a href="https://www.who.int/news-room/fact-sheets/detail/violence-against-women">here</a> <a href="#fnref:4" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- Footer -->
+
+<hr>
+
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <ul class="list-inline text-center">
+          
+          <li class="list-inline-item">
+            <a href="mailto:cecilia.sartori@studenti.unitn.it">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="far fa-envelope fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          
+          
+          
+          <li class="list-inline-item">
+            <a href="https://github.com/cecilia-sartori">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+        </ul>
+        <p class="copyright text-muted">Copyright &copy; cecilia sartori 2022</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/vendor/startbootstrap-clean-blog/js/scripts.js"></script>
+
+<script src="/assets/scripts.js"></script>
+
+
+
+
+
+</body>
+
+</html>
