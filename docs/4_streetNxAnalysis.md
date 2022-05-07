@@ -773,7 +773,7 @@ folium.plugins.AntPath(path).add_to(direction_m)
 ```
 
 
-<iframe src="/img/output/shortest_path.html" height="500px" width="100%"></iframe>
+<iframe src="https://cecilia-sartori.github.io/gs-exam/shortest-path/" height="500px" width="100%"></iframe>
 
 
 Click on destination icon to get the name of the help centre. 

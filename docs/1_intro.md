@@ -217,7 +217,7 @@ config = dict({'displayModeBar': False})
 #fig.show(config=config)
 #fig.write_html("output/VAW_in_World.html",config=config)
 ```
-<iframe src="/img/output/VAW_in_World.html" height="500px" width="100%"></iframe>
+<iframe src="https://cecilia-sartori.github.io/gs-exam/wav-in-world/" height="500px" width="100%"></iframe>
 
 States are correctly displayed and data easily turned into informative interactive content.
 

@@ -625,7 +625,7 @@ config = dict({'displayModeBar': False})
 #fig.show(config=config)
 ```
 
-<iframe src="/img/output/VAW_in_CDMX_byType.html" height="400px" width="100%"></iframe>
+<iframe src="https://cecilia-sartori.github.io/gs-exam/vaw-type/" height="400px" width="100%"></iframe>
 
 Click on the legend entries to hide and show traces. 
 
@@ -1466,7 +1466,7 @@ folium.plugins.MiniMap().add_to(vaw_map)
 ```
 
 
-<iframe src="https://cdn.rawgit.com/cecilia-sartori/gs-exam/main/docs/img/output/VAW_in_CDMX_byType.html" height="500px" width="100%"></iframe>
+<iframe src="https://cecilia-sartori.github.io/gs-exam/cdmx-folium/" height="500px" width="100%"></iframe>
 
 
 Et Voilà! Click on the legend entries to hide and show the layer. 
