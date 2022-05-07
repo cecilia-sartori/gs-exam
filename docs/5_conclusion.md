@@ -31,6 +31,9 @@ Overall, the most time-consuming and demanding part of the project was the *extr
 
 # Attribution
 
+All background images are free for commercial use and requires no attribution. See [Pixabay license](https://pixabay.com/service/license/).
+
+
 For the geospatial analysis, I used the folowing resources:
 
 - [Geospatial Analysis and Representation - UniTN](https://napo.github.io/geospatial_course_unitn/)

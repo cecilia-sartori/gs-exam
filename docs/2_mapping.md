@@ -626,7 +626,7 @@ config = dict({'displayModeBar': False})
 
 <iframe src="https://cecilia-sartori.github.io/gs-exam/vaw-type/" height="800px" width="100%"></iframe>
 
-[Fullscreen Map](https://cecilia-sartori.github.io/gs-exam/vaw-type/)
+[Fullscreen Barchart](https://cecilia-sartori.github.io/gs-exam/vaw-type/)
 
 Click on the legend entries to hide and show traces. 
 
@@ -1154,7 +1154,7 @@ ctx.add_basemap(ax,source=ctx.providers.CartoDB.Positron)
     
 
 
-The fugure above presents information in a simple, visual way. However, it would be much better for users to be free to zoom in some areas and play around, namely if the figure were interactive! I can use `folium` to accomplish the task.
+The fugure above presents information in a simple, visual way. However, it would be much better for users to be free to zoom in and out in some areas and play around, namely if the figure were interactive! I can use `folium` to accomplish the task.
 
 Moreover, AGEB are really useful to understand whether similar geographies tend to cluster (and apparently they do in this case). But what about the district they belong to?
 Let's find out the worst neighborhood to be a woman in Mexico City - as claimed by the title of the project - by fisrt importing the Neighborhood Data.
