@@ -219,6 +219,8 @@ config = dict({'displayModeBar': False})
 ```
 <iframe src="https://cecilia-sartori.github.io/gs-exam/wav-in-world/" height="500px" width="100%"></iframe>
 
+[Fullscreen Map](https://cecilia-sartori.github.io/gs-exam/wav-in-world/)
+
 States are correctly displayed and data easily turned into informative interactive content.
 
  As the figure shows, VAWG is widespread with a higher prevalence in least developed countries. However, a recent [UN WOMAN report](https://worlds-women-2020-data-undesa.hub.arcgis.com/) states that the phenomenon is largely underreported, both in stable and emergency contexts, revealing that data collection on the issue is difficult and data themselves often miss the whole picture. 

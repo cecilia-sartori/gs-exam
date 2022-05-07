@@ -627,6 +627,8 @@ config = dict({'displayModeBar': False})
 
 <iframe src="https://cecilia-sartori.github.io/gs-exam/vaw-type/" height="400px" width="100%"></iframe>
 
+[Fullscreen Map](https://cecilia-sartori.github.io/gs-exam/vaw-type/)
+
 Click on the legend entries to hide and show traces. 
 
 The trend stated by UN have proven to be true for Mexico City. It is worth noting that the number of reported violence is stable throughout the year, but decreases significantly in the months of November and December, revealing that perhaps during the holidays it is more difficult for women to report.
@@ -1468,6 +1470,7 @@ folium.plugins.MiniMap().add_to(vaw_map)
 
 <iframe src="https://cecilia-sartori.github.io/gs-exam/cdmx-folium/" height="500px" width="100%"></iframe>
 
+[Fullscreen Map](https://cecilia-sartori.github.io/gs-exam/cdmx-folium/)
 
 Et Voilà! Click on the legend entries to hide and show the layer. 
 
