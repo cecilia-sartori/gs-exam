@@ -21,7 +21,7 @@ The data set is licensed under the Mexican open data licence (CC BY-NC 2.5 MX).
 
 * **Data Structure**:
 
-  Structure of the data is described in a separate pdf file [link here](/pdf/contenido.pdf)
+  Structure of the data is described in a separate pdf file [link here](https://github.com/cecilia-sartori/gs-exam/blob/main/docs/pdf/contenido.pdf)
 
 
 <span style="white-space: pre"> 
@@ -133,7 +133,7 @@ gdf.sample(2)
 
 CVEGEO is the concatenated geostatistical key that summarises all subsequent elements. This key will be crucial for merging AGEB data with other sources. 
 
-Keep only Mexico City by using the corresponding federal entity key, equal to `09` ([source](/pdf/municipios.pdf)).
+Keep only Mexico City by using the corresponding federal entity key, equal to `09` ([source](https://github.com/cecilia-sartori/gs-exam/blob/main/docs/pdf/municipios.pdf)).
 
 
 ```python
@@ -257,12 +257,12 @@ The data set is licensed under the Mexican open data licence (CC BY-NC 2.5 MX).
 
 * **Data Structure**:
 
-    Structure of the data is described in a separate pdf file ([link here]())
+    Structure of the data is described in a separate pdf file ([link here](https://github.com/cecilia-sartori/gs-exam/blob/main/docs/pdf/fd_agebmza_urbana_cpv2020.pdf))
     
     
     
 
-The data below have been roughly cleaned before importing. See the step [here](/0_datasets/#census-data). 
+The data below have been roughly cleaned before importing. See the step [here](https://cecilia-sartori.github.io/gs-exam/0_datasets/). 
 
 
 ```python
@@ -495,7 +495,7 @@ The data set is licensed under the open data licence (CC BY 4.0).
 
     Structure of the data is described in a separate excel file ([download here](https://datos.cdmx.gob.mx/dataset/victimas-en-carpetas-de-investigacion-fgj/resource/10235569-f4a9-4876-9465-9780887df8e2))
 
-**This datasets have been extensively pre-processed [here](/0_datasets/#vaw-data)**
+**This datasets have been extensively pre-processed [here](https://cecilia-sartori.github.io/gs-exam/0_datasets/#vaw-data)**
 ```python
 # Read data
 vaw = pd.read_csv('data/vaw_filtered.csv')
@@ -1162,7 +1162,7 @@ Let's find out the worst neighborhood to be a woman in Mexico City - as claimed 
 
 ## Get Neighborhood Data
 
-Data comes from Mexico City Open Data Portal and have been cleaned before importig. Find the pre-processign phase [here](/0_datasets/#neighbourhood-data).
+Data comes from Mexico City Open Data Portal and have been cleaned before importig. Find the pre-processign phase [here](https://cecilia-sartori.github.io/gs-exam/0_datasets/#neighbourhood-data).
 
 
 ```python
