@@ -1468,6 +1468,10 @@ folium.plugins.MiniMap().add_to(vaw_map)
 
 <iframe src="/img/output/CDMX_VAW_Folium.html" height="800px" width="100%"></iframe>
 
+<object data="/img/output/CDMX_VAW_Folium.html"> 
+    Your browser doesn’t support the object tag. 
+</object>
+
 
 
 Et Voilà! Click on the legend entries to hide and show the layer. 
