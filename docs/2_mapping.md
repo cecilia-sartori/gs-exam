@@ -1467,7 +1467,7 @@ folium.plugins.MiniMap().add_to(vaw_map)
 ```
 
 
-<iframe src="https://cecilia-sartori.github.io/gs-exam/cdmx-folium/" height="500px" width="100%"></iframe>
+<iframe src="https://cecilia-sartori.github.io/gs-exam/cdmx-folium/" height="800px" width="100%"></iframe>
 
 [Fullscreen Map](https://cecilia-sartori.github.io/gs-exam/cdmx-folium/)
 
