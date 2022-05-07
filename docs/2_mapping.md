@@ -1466,8 +1466,7 @@ folium.plugins.MiniMap().add_to(vaw_map)
 ```
 
 
-{% include CDMX_VAW_Folium.html %}
-
+<iframe src="https://cdn.rawgit.com/cecilia-sartori/gs-exam/main/docs/img/output/VAW_in_CDMX_byType.html" height="500px" width="100%"></iframe>
 
 
 Et Voilà! Click on the legend entries to hide and show the layer. 
