@@ -44,6 +44,8 @@ For the geospatial analysis, I use the folowing resources:
 
 For GitHub page (construction and customization):
 
+- [GitHub Pages and Jekyll](https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/about-github-pages-and-jekyll)
+
 - [Anchors to link](https://blog.briandrupieski.com/generate-anchors-in-jekyll-blog-post)
 
 - [Giraffe Academy - Jekyll tutorial](https://youtu.be/T1itpPvFWHI)
