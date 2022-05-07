@@ -2,7 +2,7 @@
 layout: page
 title: Findings
 description: and how I built this
-background: '/img/bg-attribution.jpg'
+background: '/gs-exam/img/bg-attribution.jpg'
 ---
 
 From all the previous steps, we  assessed the severity of the problem in Mexico City.

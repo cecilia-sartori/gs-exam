@@ -2,7 +2,7 @@
 layout: page
 title: "Display VAW"
 description: Get visual intuitions from data
-background: '/img/bg_mapping.jpg'
+background: '/gs-exam/img/bg_mapping.jpg'
 ---
 
 

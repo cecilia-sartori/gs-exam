@@ -1,6 +1,6 @@
 ---
 layout: home
-background: '/img/bg-index.jpg'
+background: '/gs-exam/img/bg-index.jpg'
 ---
 
 With the rise of the open data culture and the growing investments in the digital transformation of public administrations, government data sets with geocoded locations are becoming more available to anyone. This provides many opportunities to extract meaningful insights of human behaviour from geographic patterns. 

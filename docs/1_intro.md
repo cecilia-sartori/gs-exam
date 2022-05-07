@@ -2,7 +2,7 @@
 layout: page
 title: "VAW in the World"
 description: Providing Context
-background: '/img/bg_intro.jpg'
+background: '/gs-exam/img/bg_intro.jpg'
 ---
 
 

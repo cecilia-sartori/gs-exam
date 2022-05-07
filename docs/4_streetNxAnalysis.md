@@ -2,7 +2,7 @@
 layout: page
 title: "Shortest path"
 description: "investigating street network"
-background: '/img/bg_streetnx.jpg'
+background: '/gs-exam/img/bg_streetnx.jpg'
 ---
 
 

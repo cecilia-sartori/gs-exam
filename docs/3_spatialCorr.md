@@ -2,7 +2,7 @@
 layout: page
 title: "Finding patterns"
 description: "investigating spatial correlations"
-background: '/img/bg_spatCorr.jpg'
+background: '/gs-exam/img/bg_spatCorr.jpg'
 ---
 
 According to the so-called "[First Law of Geography](https://en.wikipedia.org/wiki/Tobler%27s_first_law_of_geography)", things that happen in a place are likely to also happen at nearby locations. This relationship can be positive if similar values are close to each other, or negative if distant.

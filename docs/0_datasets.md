@@ -2,7 +2,7 @@
 layout: page
 title: "Pre-Processing"
 description: Step-by-step
-background: '/img/bg_mapping1.jpg'
+background: '/gs-exam/img/bg_mapping1.jpg'
 ---
 
 
