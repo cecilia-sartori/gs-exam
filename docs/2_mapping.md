@@ -446,7 +446,7 @@ df.head()
 As can be seen, census dataset comes with a lot of information. Column headers are defined in the data structure file mentioned above. Here below find the description of what I consider interesting to keep. Drop the rest.
 
 
-
+<div class="table-wrapper">
 | CODE         | CATEGORY   | DESCRIPTION  |
 |--------------|-----------|:-----------|
 | **CVEGEO** | GEO | Geostatistical key|
@@ -459,7 +459,7 @@ As can be seen, census dataset comes with a lot of information. Column headers a
 | **PSINDER** | HEALTH | Population with no access to health care |
 | **VPH_SINLTC**| DIGITAL ACCESS | Homes with no landline or cell phone  |
 | **VPH_SINCINT** | DIGITAL ACCESS | Homes with no computer or Internet |
-
+</div>
 
 Transfer census attributes to AGEB GeoDataFrame by merging on the geostatistical key. Put gdf on the left to keep spatial format in the resulting output.
 
@@ -530,6 +530,7 @@ occur_type.tail(5)
 
 
 <div>
+<div class="table-wrapper">
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -586,7 +587,7 @@ occur_type.tail(5)
   </tbody>
 </table>
 </div>
-
+</div>
 
 
 
@@ -1176,6 +1177,7 @@ gdf_mun.head(3)
 
 
 <div>
+<div class="table-wrapper">
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -1223,6 +1225,7 @@ gdf_mun.head(3)
     </tr>
   </tbody>
 </table>
+</div>
 </div>
 
 

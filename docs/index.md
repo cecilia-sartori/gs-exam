@@ -5,7 +5,7 @@ background: '/img/bg-index.jpg'
 
 With the rise of the open data culture and the growing investments in the digital transformation of public administrations, government data sets with geocoded locations are becoming more available to anyone. This provides many opportunities to extract meaningful insights of human behaviour from geographic patterns. 
 
-This project aims to map violence against women (VAW) in Mexico City neighborhoods and identify what areas are most at risk within the city. After a brief introduction on VAW in the world, it will evaluate the spatial dependence between geographic locations of reported cases by using a smaller spatial unit, the census blocks (AGEB). In conclusion, it will investigate access to women's shelters by computing the average travel distance. 
+This project aims to map violence against women (VAW) in Mexico City neighborhoods and identify what areas are most at risk within the city. After a brief introduction on VAW rates in the world, it will evaluate the spatial dependence between geographic locations of reported cases by using a smaller spatial unit, the census blocks (AGEB). In conclusion, it will investigate access to women's shelters by computing the average travel distance from place of living.  
 
 <span style="white-space: pre"> 
 ##### Keywords: violence against women; spatial data; data visualization; interactive maps; Mexico 
@@ -16,20 +16,20 @@ This project aims to map violence against women (VAW) in Mexico City neighborhoo
 
 Ending violence against women by 2030 is one of the greatest challenges of the UN Agenda for Sustainble Development. Globally, one in three women have been subjected to physical or sexual violence at least once in their lives and the COVID-19 pandemic has seriously worsened the situation[^1]. 
 
-Fighting femicide and assaults on women is particularly hard in Latin America and the Caribbean. In 2017, the region has been declared by the UN Women and the UN Development Programme, the most violent region in the world for women[^2] and an extensive [survey](https://www.unwomen.org/en/news/stories/2017/2/take-five-adriana-quinones-femicide-in-latin-america) indicates that among the 25 countries with the highest rates of femicide in the world, more than half are in Latin America and the Caribbean.
+Fighting femicide and assaults on women is particularly hard in Latin America and the Caribbean. In 2017, the region has been declared by the UN the most violent region in the world for women[^2] and an extensive [survey](https://www.unwomen.org/en/news/stories/2017/2/take-five-adriana-quinones-femicide-in-latin-america) indicates that among the 25 countries with the highest rates of femicide in the world, more than half are in Latin America and the Caribbean.
 
-Among all the countries of the region, Mexico ranks first for investing in open data. In recent years, high-value data have been made open and accessible to the general public with platforms such as [National Risk Atlas](http://www.atlasnacionalderiesgos.gob.mx/portal/fenomenos/), [Data México](https://datamexico.org/) and [Mexican Open Government Data](https://www.datos.gob.mx/) worthy of a special mention. Moreover, Mexico is part of [IEEE Core Smart Cities](https://smartcities.ieee.org/about/municipal-partners), a global initiative to promote the use of technology to improve the quality of life of urban residents- as Trento does for Italy. 
+Among all the countries of the region, Mexico ranks first for investing in open data. In recent years, high-value data have been made open and accessible to the general public with platforms such as [National Risk Atlas](http://www.atlasnacionalderiesgos.gob.mx/portal/fenomenos/), [Data México](https://datamexico.org/) and [Mexican Open Government Data](https://www.datos.gob.mx/) worthy of a special mention. Moreover, Mexico is part of [IEEE Core Smart Cities](https://smartcities.ieee.org/about/municipal-partners), a global initiative that promote the use of technology for higher quality of life in urban areas - as Trento does for Italy. 
 
 Therefore, the capital of Mexico is the perfect candidate to develop this project.  
 
 ## Factors associated with violence against women
 
-Various studies have proven that low-socioeconomic status are related to a higher VAW rate[^3]. According to UN[^4], risk factors include low levels of education, income and gender inequality. This project will retrieve some elements associated with social marginality to make data more informative, but it won't delve into the relationship between variables and violence against women.
+Various studies have proven that low-socioeconomic status are related to a higher VAW rate[^3]. According to UN[^4], risk factors include low levels of education, income and gender inequality. This project will retrieve some elements associated with social marginality to make data more informative, but it won't delve into relationships between them.
 
 
 ## Data Sources
 
-Data will mostly come from Mexico City’s open data portal, datos.cdmx.gob.mx. Census block geographies are from the National Institute of Statistics and Geography (INEGI) website, inegi.org.mx, while the neighbourod from Mexico City's portal as are both VAW reported cases and Help Centre locations. Data on the state of VAW in the world comes from the World Health Organization data hub. Other data come from Open Streets Map.
+Data will mostly come from [Mexico City’s open data portal](datos.cdmx.gob.mx). Census block geographies are from the National Institute of Statistics and Geography ([INEGI](inegi.org.mx)), while the neighbourod from Mexico City's portal as are both VAW reported cases and Help Centre locations. Data on the state of VAW in the world comes from the World Health Organization data hub. Other data come from Open Streets Map.
 
 
 
