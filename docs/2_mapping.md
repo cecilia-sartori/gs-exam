@@ -625,7 +625,7 @@ config = dict({'displayModeBar': False})
 #fig.show(config=config)
 ```
 
-<iframe src="https://cecilia-sartori.github.io/gs-exam/vaw-type/" height="400px" width="100%"></iframe>
+<iframe src="https://cecilia-sartori.github.io/gs-exam/vaw-type/" height="800px" width="100%"></iframe>
 
 [Fullscreen Map](https://cecilia-sartori.github.io/gs-exam/vaw-type/)
 
