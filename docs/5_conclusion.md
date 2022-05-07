@@ -11,10 +11,10 @@ Even though the problem is widespread, violence against women tends to be concen
 # Lessons learned
 
 At first, I tried to use geocoder for plotting data on a map without latitude and longitude (very bad idea).
-Geocoding from strings is the best, but when there are a lot of inputs then the job becomes harder. Same goes for boundaries. I ended up having half states with the right geometry and the other with inverted axes. Then I met plotly. 
+Geocoding from strings is the best, but when there are a lot of inputs then the trouble begins. Same goes for boundaries. I ended up having half states with the right geometry and the other with inverted axes (not because of the hemisphere). Then I met `plotly`. 
 
 
-`OSMnx` is a really great tool for retriving data from OpenStreetMap. However, it works well for small query, such as neighbourhoods analysis. With bigger units such as cities, perhaps it is better to use `pysrom`. 
+`OSMnx` is a really great tool for retriving data from OpenStreetMap. However, it works well for small query, such as neighbourhood analysis. With bigger units such as cities, perhaps it is better to use `pysrom`. 
 
 CRS is not hard to understand, but it took me some time to realize that each type of map wants its own format and that even if other formats are supported, better not to use them. Folium, for instance, allows users to specificy a different CRS, but gave me trouble when trying to plot the direction route with Mexico City UTM. Finding latitude and longitude in EPSG:4326 inside the reprojected graph node, has been a turning point. 
 

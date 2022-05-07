@@ -58,7 +58,7 @@ gdf = gpd.read_file('data/VAW_AGEB_clean.gjson')
 ## Global spatial autocorrelation
 
 
-The first step is to determine what to consider as neighbors and compute the spatial weights accordingly. I'll use the k-nearest neighbours weight (with $k = 8$) which assigns neighbors based on distance by finding the (eight) closest neighbors based on the centroid of each geography. 
+The first step is to determine what to consider as neighbors and compute the spatial weights accordingly. I'll use the k-nearest neighbours weight (with k = 8) which assigns neighbors based on distance by finding the (eight) closest neighbors based on the centroid of each geography. 
 
 
 ```python
@@ -276,7 +276,7 @@ gdf.to_file("data/VAW_AGEB_clean_lag.gjson", driver="GeoJSON")
 
 From the figures, it can be seen that areas with HH and LL values are more frequent, further confirming the positive correlation between the VAW rate and where the violence took place. With P-value < 0.01, we can see where the relationship is stronger. 
 
-Now we could examine the relationship between the VAW rate (dependent variable) and the explanatory variables (predictors) applying different spatial regression models to find which best describe our data. However, this is out of the scope of this project and I will keep the task as a future challenge. 
+Now we could examine the relationship between the VAW rate (dependent variable) and the explanatory variables (predictors) applying different spatial regression models with the purpose of finding which best describe our data. However, this is out of the scope of this project and I will keep the task as a future challenge. 
 
 In the next step, I'll focus on the street network analysis to find the shortest path to reach the nearest Help Centre from each AGEB. 
 

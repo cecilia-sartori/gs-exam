@@ -17,7 +17,7 @@ Let's use the data from the [WHO Global Health Observatory](https://www.who.int/
 
 ### How to plot data on a map without latitude and longitude?
 
-In most cases, the only way is to use a geocoder. It takes strings as input, such as addresses, and returns georeferenced locations. However,there is no free lunch. The names of the places can correspond to more than one location, such as Georgia (USA Federal State and country located in the Caucasus), and territories with controversial international recognition (Kosovo under UNSCR 1244, Palestinian territories, Hong Kong...) are hardly ever decoded correctly. What to do then? In general, providing more information to the geocoder ensures a better result. In the Georgia case, adding subregions to the query works.
+In most cases, the only way is to use a geocoder. It takes strings as input, such as addresses, and returns georeferenced locations. However,there is no free lunch. The name of the places can correspond to more than one location, such as Georgia (USA Federal State and country located in the Caucasus), and territories with controversial international recognition (Kosovo under UNSCR 1244, Palestinian territories, Hong Kong...) are hardly ever decoded correctly. What to do then? In general, providing more information to the geocoder ensure a better result. In the Georgia case, adding subregions to the query solve the issue.
 
 In some lucky cases (as this very one), when data have no geometry but the country codes ([ISO](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes)), we can use `plotly`, a fancy library that creates great interactive maps.
 
@@ -227,7 +227,7 @@ States are correctly displayed and data easily turned into informative interacti
 
 ## A Quick Focus on Mexico
 
-In Mexico, twenty-four per cent of women aged 15 to 49 have been subject to physical and/or sexual intimate partner violence in their life, ten per cent in the past 12 months. Overall, it scores a high rate of violence against women, but similar to countries in the region, confirming that enormous efforts must be made across Latin America and the Caribbean to eradicate violence against women. 
+In Mexico, twenty-four per cent of women aged 15 to 49 have been subject to physical and/or sexual intimate partner violence in their life, ten per cent in the past 12 months. Overall, Mexico scores a high rate of violence against women, but similar to countries in the region, confirming that enormous efforts must be made across Latin America and the Caribbean to eradicate violence against women. 
 
 In the next step, I'll focus on how to map the prevalence of violence against women in Mexico City. 
 

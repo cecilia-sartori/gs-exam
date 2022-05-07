@@ -8,9 +8,9 @@ background: '/gs-exam/img/bg_streetnx.jpg'
 
 So far, I have inspected VAW locations to understand their distribution in the urban environment. Imported, cleaned, sorted and plotted with basemaps. Proved the postive spatial correlation and detected which parts of the city have the stronger relationships with the surrounding units.
 
-This project now comes to its last part: investigating the help centres accessibility by answering to the question 'Where is the closest help centre from my place of living?'. 
+This project now comes to its last part: investigating the help centre accessibility by answering to the question 'Where is the closest help centre from my place of living?'. 
 
-Detecting the areas with low help centres accessibility can represent an important element in VAW alleviation. 
+Detecting the areas with low help centre accessibility can represent an important element in VAW alleviation. 
 
 
 To meet the goal, I have to retieve the buildings, find the nearest help centre and calculate the shortest path.
@@ -356,7 +356,7 @@ gdf = gdf.to_crs(epsg=6369)
 
 # Find Nearest Point 
 
-My query is one-to-many, namely from the centrid to all possible help cetres in the city. So, I need to combine all the help centre locations in a sigle list.
+My query is one-to-many, namely from the centrid to all possible help centres in the city. So, I need to combine all the help centre locations in a sigle list.
 
 
 ```python
@@ -365,7 +365,7 @@ list_points = gdf["geometry"].unary_union
 
 And now look for the match. Given the number of points, the following operation will take some time.
 Use `shapely - nearest_points` to find the closest geometry. Note that the output will refer to the liner distance.
-Retrieve the name of the centre for future map displaying.
+Retrieve the name of the centre too for future map displaying.
 
 
 ```python
@@ -506,7 +506,7 @@ As in many cities around the world, AGEBs on the outskirts of the city are those
 
 As for neighbourhoods, `OSMnx` allows to download street network data, project and plot the networks. 
 
-It takes the name of the place, and retunrs the network within its boundary. For future calculation, I prefer to retrieve the driving network type. 
+It takes the name of the place, and returns the network within its boundary. For future calculation, I prefer to retrieve the driving network type. 
 
 
 ```python
@@ -530,7 +530,7 @@ G_proj = ox.speed.add_edge_travel_times(G_proj)
 
 **Point A, Point B**
 
-Choose according the greatest distance
+I could pick any row, no matter which. I opt for the one with the greatest distance
 
 
 ```python

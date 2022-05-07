@@ -6,7 +6,7 @@ background: '/gs-exam/img/bg_mapping.jpg'
 ---
 
 
-First, I need the geography of the city. The smaller the geography, the better the spatial data analysis will be. For this task, I use the Basic Unit of the National Geostatistical Framework (AGEB) that provides a small enough  boundary layer. Additionally, working with AGEB will be useful for future analyses that include census data, since it represents the common framework for any data sets of the Mexican Institute of Statistics (INEGI). 
+First, I need the geography of the city. The smaller the geography, the better the spatial data analysis will be. For this task, I use the Basic Unit of the National Geostatistical Framework (AGEB) that provides a small enough  boundary layer. Additionally, working with AGEB will be useful for future analyses that include census data, since it represents the common framework for any data sets from the Mexican Institute of Statistics (INEGI). 
 
 
 ## Get Block Groups Data from Mexican National Geoinformation Portal
@@ -166,15 +166,15 @@ plt.show()
 
 
 Is this Mexico City? 
-To check it, add a basemap. 
-Running the code in the notebook, this can be done easily with the following line of code.
+To check it out, add a basemap. 
+Running the code in the notebook, this can be easily done with the following line of code.
 
 
 ```python
 gdf.explore()
 ```
 
-But nothing is displayed outside the jupyter environment. I use `contextily` to add a basemap to the static map of the geometries.
+But nothing is displayed outside the jupyter environment. So I use `contextily` to add a basemap to the static map of the geometries.
 
 This package assumes that the Coordinate Reference Systems of the data is in Spherical Mercator (EPSG:3857), unless other crs is specified ([documentation](https://contextily.readthedocs.io/en/latest/reference.html)). 
 
@@ -242,7 +242,7 @@ ctx.add_basemap(ax,source=ctx.providers.OpenStreetMap.Mapnik)
     
 
 
-Now that the spatial information is proven to be correct, let's enrich the geometries with the latest census of population and housing (2020). This makes the data much more informative about the socioeconomic status of the people living in each block and provides the explanatory variables for futere spatial regression analysis.
+Now that the spatial information is proven to be correct, let's enrich the geometries with the latest census of population and housing data (2020). This makes data much more informative about the socioeconomic status of the people living in each block and provides the explanatory variables for futere spatial regression analysis.
 
 ## Get data of 2020 Census of Population and Housing
 
@@ -470,7 +470,7 @@ gdf = pd.merge(gdf, df[['CVEGEO', 'POBTOT', 'PRESOE15',
                         'VPH_SINCINT']], on="CVEGEO")
 ```
 
-Some AGEB unit are very small and might refer to few or no people. Get rid of blocks groups with less than 100 total population to further clean the data.
+Some AGEB units are very small and might refer to few or no people. Get rid of block groups with less than 100 total population to further clean the data.
 
 
 ```python
@@ -481,7 +481,7 @@ Finally, retrieve the data about violence against women from the Mexico City's O
 
 ### Get VAW Data from CMDX Open Data Portal
 
-VAW data of Mexico City is included in the crime victim dataset. This means that I have to identify which rows are significant to the project based on the description of the crime and the victim's gender.
+VAW data of Mexico City is included in the crime victim dataset. This means that I have to identify which rows are significant to the project based on the description of the crime and victim's gender.
 
 The data set is licensed under the open data licence (CC BY 4.0).
 
@@ -630,7 +630,7 @@ config = dict({'displayModeBar': False})
 
 Click on the legend entries to hide and show traces. 
 
-The trend stated by UN have proven to be true for Mexico City. It is worth noting that the number of reported violence is stable throughout the year, but decreases significantly in the months of November and December, revealing that perhaps during the holidays it is more difficult for women to report.
+The trend stated by UN have proven to be true for Mexico City. It is worth noting that the number of reported violence is stable throughout the year, but decreases significantly in the months of November and December, revealing that perhaps it is more difficult for women to report in this period.
 
 Back to VAW dataframe. Print a summary of the data types:
 
@@ -653,7 +653,7 @@ vaw.info()
     memory usage: 992.9+ KB
 
 
-I can't plot this data on a map because no geometry is listed in the data type column. I need to convert the latitude and longitude into appropriate spatial information. 
+I can't display locations on a map because no geometry is listed in the data type column. I need to convert the latitude and longitude into appropriate spatial information. 
 
 
 ```python
@@ -762,7 +762,7 @@ ctx.add_basemap(ax,
 
 The color of each hexbin denotes the number of points in it. 
 
-With this map, I can instantly draw conclusions. For instance, I see that most cases occurs near the city center.
+With this map, I can instantly draw conclusions. For instance, I see that most cases occur near the city center.
 
 ## Combine Data
 
@@ -1231,7 +1231,7 @@ gdf_mun.head(3)
 
 
 
-Run the same operations performed before for AGEB.
+Run the same operations performed before for AGEBs.
 
 
 
