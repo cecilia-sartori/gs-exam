@@ -18,9 +18,9 @@ Geocoding from strings is the best, but when there are a lot of inputs then the 
 
 CRS is not hard to understand, but it took me some time to realize that each type of map wants its own format and that even if other formats are supported, better not to use them. Folium, for instance, allows users to specificy a different CRS, but gave me trouble when trying to plot the direction route with Mexico City UTM. Finding latitude and longitude in EPSG:4326 inside the reprojected graph node, has been a turning point. 
 
-Despite the effort for preparing data to spatial regression by acquiring socioeconomic variables, I chose not to proceed mainly for two reason: first, to write the project in a single programming language (I would have use R for this) and second to not overdo.  
+Despite the effort for preparing data to spatial regression by acquiring socioeconomic variables, I chose not to proceed mainly for keeping the project in a single programming language (I would have use R for this).
 
-Overall, the most time-consuming and demanding part of the project was the *extract, transform, and load* process required for any data set, starting from researching in the mexican data hubs to understanding the structure of the Mexican census.
+Overall, the most time-consuming and demanding part of the project was the *extract, transform, and load* process required for any data set, starting from researching in the Mexican data hubs to understanding the structure of the census data.
 
 
 
@@ -34,11 +34,13 @@ Overall, the most time-consuming and demanding part of the project was the *extr
 All background images are free for commercial use and requires no attribution. See [Pixabay license](https://pixabay.com/service/license/).
 
 
-For the geospatial analysis, I used the folowing resources:
+**For the geospatial analysis, I used the folowing resources:**
 
 - [Geospatial Analysis and Representation - UniTN](https://napo.github.io/geospatial_course_unitn/)
 
-- [Geographic Data Science with Python](https://geographicdata.science/book/intro.html) --> this is a very good resource and save my life for Global and Local Spatial Autocorrelation 
+- [Geographic Data Science with Python](https://geographicdata.science/book/intro.html) --> this is a very good resource and save my life for Global and Local Spatial Autocorrelation
+
+- [GIS workshops - University of California, Los Angeles](https://github.com/yohman)
 
 - [Spatial data science for sustainable development](https://sustainability-gis.readthedocs.io/en/latest/?badge=latest)
 
@@ -47,7 +49,7 @@ For the geospatial analysis, I used the folowing resources:
 - [OSMnx examples - @gboeing](https://github.com/gboeing/osmnx-examples/tree/main/notebooks) --> there is a bunch of good stuff in here. I used it especially for finding the shortest path 
 
 
-For GitHub page (construction and customization):
+**For GitHub page (construction and customization):**
 
 - [GitHub Pages and Jekyll](https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/about-github-pages-and-jekyll)
 

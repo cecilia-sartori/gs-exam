@@ -174,7 +174,7 @@ Running the code in the notebook, this can be easily done with the following lin
 gdf.explore()
 ```
 
-But nothing is displayed outside the jupyter environment. So I use `contextily` to add a basemap to the static map of the geometries.
+What if you run outside jupyter environment? You can use `contextily` to add a basemap to the static map of the geometries.
 
 This package assumes that the Coordinate Reference Systems of the data is in Spherical Mercator (EPSG:3857), unless other crs is specified ([documentation](https://contextily.readthedocs.io/en/latest/reference.html)). 
 

@@ -32,7 +32,7 @@ df.head(3)
 
 
 <div>
-<div class="divScroll">
+<div class="table-wrapper">
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;

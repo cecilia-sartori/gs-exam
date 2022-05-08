@@ -18,7 +18,7 @@ Ending violence against women by 2030 is one of the greatest challenges of the U
 
 Fighting femicide and assaults on women is particularly hard in Latin America and the Caribbean. In 2017, the region has been declared by the UN the most violent region in the world for women[^2] and an extensive [survey](https://www.unwomen.org/en/news/stories/2017/2/take-five-adriana-quinones-femicide-in-latin-america) indicates that among the 25 countries with the highest rates of femicide in the world, more than half are in Latin America and the Caribbean.
 
-Among all the countries of the region, Mexico ranks first for investing in open data. In recent years, high-value data have been made open and accessible to the general public with platforms such as [National Risk Atlas](http://www.atlasnacionalderiesgos.gob.mx/portal/fenomenos/), [Data México](https://datamexico.org/) and [Mexican Open Government Data](https://www.datos.gob.mx/) worthy of a special mention. Moreover, Mexico is part of [IEEE Core Smart Cities](https://smartcities.ieee.org/about/municipal-partners), a global initiative that promote the use of technology for higher quality of life in urban areas - as Trento does for Italy. 
+Among all the countries of the region, Mexico ranks first for investing in open data. In recent years, high-value data have been made open and accessible to the general public with platforms such as [National Risk Atlas](http://www.atlasnacionalderiesgos.gob.mx/portal/fenomenos/), [Data México](https://datamexico.org/) and [Mexican Open Government Data](https://www.datos.gob.mx/) worthy of a special mention.
 
 Therefore, the capital of Mexico is the perfect candidate to develop this project.  
 
