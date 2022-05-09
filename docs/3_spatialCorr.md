@@ -200,7 +200,7 @@ plt.show()
 The red line direction of the Moran Scatterplot confirms the positive relationship and, overall, I can say that high rates of WAV tend to be associated with high local average values. In the upper-right quadrant are geographies where both the VAW rates and local average VAW rate are higher than the overall average value. Similarly, in the lower-left quadrant are cases where both the VAW rate and local average value of the VAW rate are lower than the overall average value.
 
 
-Thanks to global autocorrelation, I know for a fact that our data do have a general pattern and they do not cluster by accident. But, I don't know yet if there is a local pattern. To find out that, run the local indicators of spatial association (LISA) analysis.
+Thanks to global autocorrelation, I know for a fact that our data do have a general pattern and do not cluster by accident. But, I don't know yet if there is a local pattern. To find out that, run the local indicators of spatial association (LISA) analysis.
 
 ## Local Spatial Autocorrelation
 

@@ -242,7 +242,7 @@ ctx.add_basemap(ax,source=ctx.providers.OpenStreetMap.Mapnik)
     
 
 
-Now that the spatial information is proven to be correct, let's enrich the geometries with the latest census of population and housing data (2020). This makes data much more informative about the socioeconomic status of the people living in each block and provides the explanatory variables for futere spatial regression analysis.
+Now that the spatial information is proven to be correct, let's enrich the geometries with the latest census of population and housing data (2020). This makes data much more informative about the socioeconomic status of the people living in each block and provides the explanatory variables for future spatial regression analysis.
 
 ## Get data of 2020 Census of Population and Housing
 
@@ -443,7 +443,7 @@ df.head()
 </div>
 
 
-As can be seen, census dataset comes with a lot of information. Column headers are defined in the data structure file mentioned above. Here below find the description of what I consider interesting to keep. Drop the rest.
+As can be seen, census dataset comes with a lot of information. Column headers are defined in the data structure file ([link here](https://github.com/cecilia-sartori/gs-exam/blob/main/docs/pdf/fd_agebmza_urbana_cpv2020.pdf)). Here below find the description of what I consider interesting to keep. Drop the rest.
 
 
 | CODE         | CATEGORY   | DESCRIPTION  |
@@ -477,11 +477,11 @@ Some AGEB units are very small and might refer to few or no people. Get rid of b
 gdf = gdf[gdf['POBTOT']>100]
 ```
 
-Finally, retrieve the data about violence against women from the Mexico City's Open Data Portal.
+Finally, retrieve data about violence against women from the Mexico City's Open Data Portal.
 
 ### Get VAW Data from CMDX Open Data Portal
 
-VAW data of Mexico City is included in the crime victim dataset. This means that I have to identify which rows are significant to the project based on the description of the crime and victim's gender.
+VAW data of Mexico City is included in the crime victim dataset. This means that I have to filter data based on crime description and victim's gender. **This datasets have been extensively pre-processed [here](https://cecilia-sartori.github.io/gs-exam/0_datasets/#vaw-data)**
 
 The data set is licensed under the open data licence (CC BY 4.0).
 
@@ -495,7 +495,7 @@ The data set is licensed under the open data licence (CC BY 4.0).
 
     Structure of the data is described in a separate excel file ([download here](https://datos.cdmx.gob.mx/dataset/victimas-en-carpetas-de-investigacion-fgj/resource/10235569-f4a9-4876-9465-9780887df8e2))
 
-**This datasets have been extensively pre-processed [here](https://cecilia-sartori.github.io/gs-exam/0_datasets/#vaw-data)**
+
 ```python
 # Read data
 vaw = pd.read_csv('data/vaw_filtered.csv')
@@ -630,7 +630,7 @@ config = dict({'displayModeBar': False})
 
 Click on the legend entries to hide and show traces. 
 
-The trend stated by UN have proven to be true for Mexico City. It is worth noting that the number of reported violence is stable throughout the year, but decreases significantly in the months of November and December, revealing that perhaps it is more difficult for women to report in this period.
+The trend stated by the UN have proven to be true for Mexico City. It is worth noting that the number of reported violence is stable throughout the year, but decreases significantly in the months of November and December, revealing that perhaps it is more difficult for women to report in this period.
 
 Back to VAW dataframe. Print a summary of the data types:
 
@@ -1162,7 +1162,7 @@ Let's find out the worst neighborhood to be a woman in Mexico City - as claimed 
 
 ## Get Neighborhood Data
 
-Data comes from Mexico City Open Data Portal and have been cleaned before importig. Find the pre-processign phase [here](https://cecilia-sartori.github.io/gs-exam/0_datasets/#neighbourhood-data).
+Data comes from Mexico City Open Data Portal and have been cleaned before importig. Find the pre-processign phase [here](https://cecilia-sartori.github.io/gs-exam/0_datasets/#neighbourhood).
 
 
 ```python
