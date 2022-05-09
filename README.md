@@ -2,13 +2,13 @@
 
 This repo serves as source for maintaining the final assignment for Geospatial Analysis course page and contains all the source code files for reproducing it. See the whole project here https://cecilia-sartori.github.io/gs-exam/
 
-This project aims to map violence against women (VAW) in Mexico City neighborhoods and identify what areas are most at risk within the city. After a brief introduction on VAW rates in the world, it will evaluate the spatial dependence between geographic locations of reported cases by using a smaller spatial unit, the census blocks (AGEB). In conclusion, it will investigate access to women’s shelters by computing the average travel distance from place of living.
+This project aims to map violence against women (VAW) in Mexico City neighborhoods and identify what areas are most at risk within the city. After a brief introduction on VAW rates in the world, it will evaluate the spatial dependence between geographic locations of reported cases by using a smaller spatial unit, the census blocks (AGEB). In conclusion, it will investigate access to women’s shelters by computing average travel distance from place of living.
 
 
 # How to Run the Project
 
-The files are written using Jupyter Notebooks. All the notebooks for Colab environment are located in Colab-folder and all notebooks for run the project on your machine are located in notebooks-folder.
-Docs-folder is set as the GitHub page source.
+The files are written in Python using Jupyter Notebooks. All notebooks for Colab environment are located in Colab-folder and all notebooks for running the project on your machine are located in notebooks-folder.
+Docs-folder is set as GitHub page source.
 
 The files must be executed in a specific order, and each has a goal:
 

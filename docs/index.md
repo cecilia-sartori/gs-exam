@@ -5,7 +5,7 @@ background: '/gs-exam/img/bg-index.jpg'
 
 With the rise of the open data culture and the growing investments in the digital transformation of public administrations, government data sets with geocoded locations are becoming more available to anyone. This provides many opportunities to extract meaningful insights of human behaviour from geographic patterns. 
 
-This project aims to map violence against women (VAW) in Mexico City neighborhoods and identify what areas are most at risk within the city. After a brief introduction on VAW rates in the world, it will evaluate the spatial dependence between geographic locations of reported cases by using a smaller spatial unit, the census blocks (AGEB). In conclusion, it will investigate access to women's shelters by computing the average travel distance from place of living.  
+This project aims to map violence against women (VAW) in Mexico City neighborhoods and identify what areas are most at risk within the city. After a brief introduction on VAW rates in the world, it will evaluate the spatial dependence between geographic locations of reported cases by using a smaller spatial unit, the census blocks (AGEB). In conclusion, it will investigate access to women's shelters by computing average travel distance from place of living.  
 
 <span style="white-space: pre"> 
 ##### Keywords: violence against women; spatial data; data visualization; interactive maps; Mexico 
@@ -24,12 +24,12 @@ Therefore, the capital of Mexico is the perfect candidate to develop this projec
 
 ## Factors associated with violence against women
 
-Various studies have proven that low-socioeconomic status are related to a higher VAW rate[^3]. According to UN[^4], risk factors include low levels of education, income and gender inequality. This project will retrieve some elements associated with social marginality to make data more informative, but it won't delve into relationships between them.
+Various studies have proven that low-socioeconomic status are related to a higher VAW rate[^3]. According to UN[^4], risk factors include low level of education, income and gender inequality. This project will retrieve some elements associated with social marginality to make data more informative, but it won't delve into relationships between them.
 
 
 ## Data Sources
 
-Data will mostly come from [Mexico City’s open data portal](datos.cdmx.gob.mx). Census block geographies are from the National Institute of Statistics and Geography ([INEGI](inegi.org.mx)), while the neighbourod from Mexico City's portal as are both VAW reported cases and Help Centre locations. Data on the state of VAW in the world comes from the World Health Organization data hub. Other data come from Open Streets Map.
+Data will mostly come from [Mexico City’s open data portal](datos.cdmx.gob.mx). Census block geographies are from the National Institute of Statistics and Geography ([INEGI](inegi.org.mx)), while the neighbourod from Mexico City's portal as are both VAW reported cases and Help Centre locations. Data on the state of VAW in the world comes from the World Health Organization data hub. Other data come from [OpenStreetMap](https://www.openstreetmap.org).
 
 
 

@@ -10,14 +10,14 @@ background: '/gs-exam/img/bg_intro.jpg'
 
 A [study](https://www.who.int/news/item/09-03-2021-devastatingly-pervasive-1-in-3-women-globally-experience-violence) conducted by the World Health Organization (WHO) in 2018 reveals that inequality is the primary driver of violence. In low-an-middle income countries, women annually report rates of violence that are up to three times greater than those living in the most developed countries.
 
-Let's use the data from the [WHO Global Health Observatory](https://www.who.int/data/gho/indicator-metadata-registry/imr-details/3685) to figure out what countries have the highest prevalence rates of intimate partner violence among women aged 15-49. Consider two indicators: 
+Let's use data from the [WHO Global Health Observatory](https://www.who.int/data/gho/indicator-metadata-registry/imr-details/3685) to figure out what countries have the highest prevalence rates of intimate partner violence among women aged 15-49. Consider two indicators: 
 
 - Intimate partner violence prevalence among ever partnered women in their lifetime (%)
 - Intimate partner violence prevalence among ever partnered women in the previous 12 months (%) (latest available year: 2018)
 
 ### How to plot data on a map without latitude and longitude?
 
-In most cases, the only way is to use a geocoder. It takes strings as input, such as addresses, and returns georeferenced locations. However,there is no free lunch. The name of the places can correspond to more than one location, such as Georgia (USA Federal State and country located in the Caucasus), and territories with controversial international recognition (Kosovo under UNSCR 1244, Palestinian territories, Hong Kong...) are hardly ever decoded correctly. What to do then? In general, providing more information to the geocoder ensure a better result. In the Georgia case, adding subregions to the query solve the issue.
+In most cases, the only way is to use a geocoder. It takes strings as input, such as addresses, and returns georeferenced locations. However, there is no free lunch. The name of the places can correspond to more than one location, such as Georgia (USA Federal State and country located in the Caucasus), and territories with controversial international recognition (Kosovo under UNSCR 1244, Palestinian territories, Hong Kong...) are hardly ever decoded correctly. What to do then? In general, providing more information to the geocoder ensure a better result. In the Georgia case, adding subregions to the query solve the issue.
 
 In some lucky cases (as this very one), when data have no geometry but the country codes ([ISO](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes)), we can use `plotly`, a fancy library that creates great interactive maps.
 
@@ -43,7 +43,7 @@ df12M = pd.read_csv("data/WHO_vaw_previous12months.csv")
 dfLFT = pd.read_csv('data/WHO_vaw_lifetime.csv')
 ```
 
-Merge the two indicators:
+Merge indicators into a single dataFrame:
 
 
 ```python
@@ -177,7 +177,7 @@ df.head(3)
 
 
 
-Create the Choropleth Map: 
+Create Choropleth Map: 
 
 
 ```python
@@ -223,13 +223,13 @@ config = dict({'displayModeBar': False})
 
 States are correctly displayed and data easily turned into informative interactive content.
 
- As the figure shows, VAWG is widespread with a higher prevalence in least developed countries. However, a recent [UN WOMAN report](https://worlds-women-2020-data-undesa.hub.arcgis.com/) states that the phenomenon is largely underreported, both in stable and emergency contexts, revealing that data collection on the issue is difficult and data themselves often miss the whole picture. 
+ As the figure shows, VAW is widespread with a higher prevalence in least developed countries. However, a recent [UN WOMAN report](https://worlds-women-2020-data-undesa.hub.arcgis.com/) states that the phenomenon is largely underreported, both in stable and emergency contexts, revealing that data collection on the issue is difficult and data themselves often miss the whole picture. 
 
-## A Quick Focus on Mexico
+## A Quick Look at Mexico
 
 In Mexico, twenty-four per cent of women aged 15 to 49 have been subject to physical and/or sexual intimate partner violence in their life, ten per cent in the past 12 months. Overall, Mexico scores a high rate of violence against women, but similar to countries in the region, confirming that enormous efforts must be made across Latin America and the Caribbean to eradicate violence against women. 
 
-In the next step, I'll focus on how to map the prevalence of violence against women in Mexico City. 
+In the next step, I'll focus on how to map prevalence of violence against women in Mexico City. 
 
 
 <span style="white-space: pre"> 
