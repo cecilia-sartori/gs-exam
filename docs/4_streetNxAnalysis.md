@@ -356,15 +356,14 @@ gdf = gdf.to_crs(epsg=6369)
 
 # Find Nearest Point 
 
-My query is one-to-many, namely from the centrid to all possible help centres in the city. So, I need to combine all the help centre locations in a sigle list.
+My query is one-to-many, namely from the centroid to all possible help centres in the city. So, I need to combine all the help centre locations in a sigle list.
 
 
 ```python
 list_points = gdf["geometry"].unary_union
 ```
 
-And now look for the match. Given the number of points, the following operation will take some time.
-Use `shapely - nearest_points` to find the closest geometry. Note that the output will refer to the liner distance.
+And now look for the match. Use `shapely - nearest_points` to find the closest geometry. Note that the output will refer to the liner distance. Given the number of points, the following operation will take some time.
 Retrieve the name of the centre too for future map displaying.
 
 
@@ -452,7 +451,7 @@ gdfa['dist_km'].describe()
 
 
 
-On average, the distance from AGEB central points to the help centers is approximately 1.5 km, which is not bad, and the maximum distance from a women in danger to a safe place is less than 7 Km. Display distance on a choroplet map and compare it with the spatial lag map.  
+On average, the distance from AGEB central points to the closest help centre is approximately 1.5 km, which is not bad, and the maximum distance from a women in danger to a safe place is less than 7 Km. Display distance on a choroplet map and compare it with the spatial lag map.  
 
 
 
@@ -499,7 +498,7 @@ plt.show()
     
 
 
-As in many cities around the world, AGEBs on the outskirts of the city are those with less access to services. The distance values we have found are widely acceptable, but do they correspond to reality?
+As in many cities around the world, AGEBs on the outskirts are those with less access to services. The distance values we have found are widely acceptable, but do they correspond to reality?
 
 # Get street network with OSMnx
 
@@ -620,7 +619,7 @@ orig_node = ox.distance.nearest_nodes(G_proj, X=gdfa.centroid[i].x, Y=gdfa.centr
 dest_node = ox.distance.nearest_nodes(G_proj, X=gdfa.closest_centre[i].x, Y=gdfa.closest_centre[i].y)
 ```
 
-Once nodes are found, time to calculate the routes using two different parameters: length and travel time.
+Once nodes are found, calculate the routes using two different parameters: length and travel time.
 
 
 ```python
@@ -726,7 +725,7 @@ for nds in route:
     nds += 1
 ```
 
-Note that latitude and longitude are inverted in non-reproject network!
+Note that latitude and longitude have different order in non-reproject network!
 
 
 ```python
