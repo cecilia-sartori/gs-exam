@@ -1,6 +1,6 @@
 # The worst neighborhood to be a Women in Mexico City
 
-This repo serves as source for maintaining the final assignment for Geospatial Analysis course page. See the whole project here https://cecilia-sartori.github.io/gs-exam/
+This repo serves as source for maintaining the final assignment for Geospatial Analysis course page and contains all the source code files for reproducing it. See the whole project here https://cecilia-sartori.github.io/gs-exam/
 
 This project aims to map violence against women (VAW) in Mexico City neighborhoods and identify what areas are most at risk within the city. After a brief introduction on VAW rates in the world, it will evaluate the spatial dependence between geographic locations of reported cases by using a smaller spatial unit, the census blocks (AGEB). In conclusion, it will investigate access to women’s shelters by computing the average travel distance from place of living.
 
@@ -8,12 +8,12 @@ This project aims to map violence against women (VAW) in Mexico City neighborhoo
 # How to Run the Project
 
 The files are written using Jupyter Notebooks. All the notebooks for Colab environment are located in Colab-folder and all notebooks for run the project on your machine are located in notebooks-folder.
-Docs-folder is set as the GitHub Pages source.
+Docs-folder is set as the GitHub page source.
 
 The files must be executed in a specific order, and each has a goal:
 
 0. datasets: data pre-processing
-1. intro: plot choropleth maps with no geoinformation
+1. intro: plot choropleth map with no geoinformation
 2. mapping: create interactive map
 3. spatialCorr: prove spatial dependence
 4. street Network: compute distance in a graph
@@ -44,8 +44,9 @@ pip install -r requirements.txt
 
 ### Download Dataset Locally ###
 
-Because of GitHub size limitation in uploading, some data need to be downloaded from original source.
-Run `run_local.ipynb` as first step. Then follow the step described above. 
+Because of GitHub size limitation in uploading files, some data need to be downloaded from the original source.
+Run `run_local.ipynb` as first step. Then follow the order described. 
+You can skip the pre-processing stage (`0_datasets.ipynb`) since the generated outputs are located in the notebooks/data folder.
 
 
 ## License
