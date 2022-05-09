@@ -46,7 +46,7 @@ pip install -r requirements.txt
 
 Because of GitHub size limitation in uploading files, some data need to be downloaded from the original source.
 Run `run_local.ipynb` as first step. Then follow the order described. 
-You can skip the pre-processing stage (`0_datasets.ipynb`) since the generated outputs are located in the notebooks/data folder.
+You can skip the pre-processing stage (`0_datasets.ipynb`) since all intermediate outputs are stored in the notebooks/data folder.
 
 
 ## License
