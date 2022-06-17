@@ -3,7 +3,7 @@ layout: home
 background: '/gs-exam/img/bg-index.jpg'
 ---
 
-With the rise of the open data culture and the growing investments in the digital transformation of public administrations, government data sets with geocoded locations are becoming more available to anyone. This provides many opportunities to extract meaningful insights of human behaviour from geographic patterns. 
+With the rise of open data culture and the growing investments in the digital transformation of public administrations, government data sets with geocoded locations are becoming more available to anyone. This provides many opportunities to extract meaningful insights of human behaviour from geographic patterns. 
 
 This project aims to map violence against women (VAW) in Mexico City neighborhoods and identify what areas are most at risk within the city. After a brief introduction on VAW rates in the world, it will evaluate the spatial dependence between geographic locations of reported cases by using a smaller spatial unit, the census blocks (AGEB). In conclusion, it will investigate access to women's shelters by computing average travel distance from place of living.  
 

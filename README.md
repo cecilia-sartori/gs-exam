@@ -1,4 +1,4 @@
-# The worst neighborhood to be a Women in Mexico City
+# The worst neighborhood to be a Woman in Mexico City
 
 This repo serves as source for maintaining the final assignment for Geospatial Analysis course page and contains all the source code files for reproducing it. See the whole project here https://cecilia-sartori.github.io/gs-exam/
 
